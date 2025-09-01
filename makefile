@@ -1,19 +1,19 @@
+NAME = cube
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
-SRCS = main.c
-OBJS = $(SRCS:.c=.o)
+SRCS = main.c file.c
+OBJS = main.o
 HEADER = cube.h
-NAME = cube
+
 
 all : $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(OBJS)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-%.o: %.c
+%.o : %.c $(HEADER)
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
-
 
 clean :
 	$(RM) $(OBJS)

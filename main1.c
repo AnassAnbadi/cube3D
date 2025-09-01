@@ -37,8 +37,8 @@ int main(int argc, char **argv)
     int y = 0;
 
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, HEIGHT, WIDTH, "Cube_fucking_3D!");
-    img.img = mlx_new_image(mlx, HEIGHT, WIDTH);
+	mlx_win = mlx_new_window(mlx, 1920, 1920, "Hello world!");
+    img.img = mlx_new_image(mlx, 1920, 1920);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
     char *map[] = {
@@ -61,25 +61,53 @@ int main(int argc, char **argv)
         "11111111111111111111",
         NULL
     };
-    ft_raycasting(map, &img);
-    // while(map[y])
-    // {
-    //     x = 0;
-    //     while(map[y][x])
-    //     {
-    //         if (map[y][x] == '1')
-    //             print_map(img, x * (1920/strlen(map[0])), y * 1920/strlen(map[0]), 0x00FFFFFF, map);
-    //         else if (map[y][x] == '0')
-    //             print_map(img, x * 1920/strlen(map[0]), y * 1920/strlen(map[0]), 0x00000000, map);
-    //         // else if (map[y][x] == 'P')
-    //         //     print_map(img, x * 100, y * 100, 0x0000FF00);
-    //         x++;
-    //     }
-    //     y++;
-    // }
 
+    while(map[y])
+    {
+        x = 0;
+        while(map[y][x])
+        {
+            if (map[y][x] == '1')
+                print_map(img, x * (1920/strlen(map[0])), y * 1920/strlen(map[0]), 0x00FFFFFF, map);
+            else if (map[y][x] == '0')
+                print_map(img, x * 1920/strlen(map[0]), y * 1920/strlen(map[0]), 0x00000000, map);
+            // else if (map[y][x] == 'P')
+            //     print_map(img, x * 100, y * 100, 0x0000FF00);
+            x++;
+        }
+        y++;
+    }
+                                
+    // ft_put_px(&img, 1, 1, 0x00FFFFFF);
     mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 
 	mlx_loop(mlx);
+
+    // if (argc != 2)
+    // {
+    //     printf("Error\nInvalid number of arguments\n");
+    //     return (1);
+    // }
+    // if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4) != 0)
+    // {
+    //     printf("Error\nInvalid file extension\n");
+    //     return (1);
+    // }
+    // data.map = parse_map(argv[1]);
+    // char *map[] = 
+    // if (!data.map)
+    // {
+    //     printf("Error\nFailed to parse map\n");
+    //     return (1);
+    // }
+    // if (!validate_map(data.map))
+    // {
+    //     printf("Error\nInvalid map\n");
+    //     free_map(data.map);
+    //     return (1);
+    // }
+    // init_game(&data);
+    // mlx_loop(data.mlx);
+    // free_map(data.map);
     return (0);
 }
