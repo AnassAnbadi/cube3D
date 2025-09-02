@@ -1,48 +1,91 @@
 #include "cube.h"
 #include <string.h>
 
-void	ft_put_px(t_data *data, int x, int y, int color)
-{
-	char	*dst;
+// void	ft_put_px(t_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
+// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+// 	*(unsigned int*)dst = color;
+// }
 
-void print_map(t_data img, int x, int y, int color, char **map)
+// void print_map(t_data img, int x, int y, int color, char **map)
+// {
+//     unsigned long i = 0;
+//     unsigned long j = 0;
+//     while (i < 1920/strlen(map[0]))
+//     {
+//         j = 0;
+//         while (j < 1920/strlen(map[0]))
+//         {
+//             ft_put_px(&img, x + i, y + j, color);
+//             j++;
+//         }
+//         i++;
+//     }
+// }
+
+int key_hook(int keycode, t_data *data)
 {
-    unsigned long i = 0;
-    unsigned long j = 0;
-    while (i < 1920/strlen(map[0]))
+    // Camera plane
+
+    if (keycode == UP)
     {
-        j = 0;
-        while (j < 1920/strlen(map[0]))
-        {
-            ft_put_px(&img, x + i, y + j, color);
-            j++;
-        }
-        i++;
+        if (data->map[(int)(data->player.y)][(int)(data->player.x + data->p_dir.x * MOVE_SPEED)] == '0')
+            data->player.x += data->p_dir.x * MOVE_SPEED;
+        if (data->map[(int)(data->player.y + data->p_dir.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
+            data->player.y += data->p_dir.y * MOVE_SPEED;
     }
+    if (keycode == DOWN)
+    {
+        if (data->map[(int)(data->player.y)][(int)(data->player.x - data->p_dir.x * MOVE_SPEED)] == '0')
+            data->player.x -= data->p_dir.x * MOVE_SPEED;
+        if (data->map[(int)(data->player.y - data->p_dir.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
+            data->player.y -= data->p_dir.y * MOVE_SPEED;
+    }
+    if (keycode == LEFT)
+    {
+        double old_dir_x = data->p_dir.x;
+        data->p_dir.x = data->p_dir.x * cos(-ROT_SPEED) - data->p_dir.y * sin(-ROT_SPEED);
+        data->p_dir.y = old_dir_x * sin(-ROT_SPEED) + data->p_dir.y * cos(-ROT_SPEED);
+        double old_plane_x = data->plane.x;
+        data->plane.x = data->plane.x * cos(-ROT_SPEED) - data->plane.y * sin(-ROT_SPEED);
+        data->plane.y = old_plane_x * sin(-ROT_SPEED) + data->plane.y * cos(-ROT_SPEED);
+    }
+    if (keycode == RIGHT)
+    {
+        double old_dir_x = data->p_dir.x;
+        data->p_dir.x = data->p_dir.x * cos(ROT_SPEED) - data->p_dir.y * sin(ROT_SPEED);
+        data->p_dir.y = old_dir_x * sin(ROT_SPEED) + data->p_dir.y * cos(ROT_SPEED);
+    }
+    printf("Player p_dir: (%f, %f)\n", data->p_dir.x, data->p_dir.y);
+    printf("Player plane: (%f, %f)\n", data->plane.x, data->plane.y);
+    printf("Player position: (%f, %f)\n", data->player.x, data->player.y);
+    mlx_clear_window(data->img.mlx, data->img.win);
+    render(data);
+    return (0);
 }
 
+
+    
 
 int main(int argc, char **argv)
 {
-    t_data  img;
+    t_data  data = {0};
     (void) argc;
     (void) argv;
-    void	*mlx;
-	void	*mlx_win;
-    int x = 0;
-    int y = 0;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, HEIGHT, WIDTH, "Cube_fucking_3D!");
-    img.img = mlx_new_image(mlx, HEIGHT, WIDTH);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
+	data.img.mlx = mlx_init();
+	data.img.win = mlx_new_window(data.img.mlx, WIDTH, HEIGHT, "Cube_fucking_3D!");
+    data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
+    data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length,
+								&data.img.endian);
+                    
+    data.player = (t_coord){1.5, 1.5}; // Player position
+    data.p_dir = (t_coord){-1, 0}; // Player direction vector
+    data.plane = (t_coord){0, 0.66}; 
     char *map[] = {
-      "11111111111111111111",
+        "11111111111111111111",
         "10000000000000000001",
         "10111101111111111001",
         "10100001000000001001",
@@ -61,7 +104,42 @@ int main(int argc, char **argv)
         "11111111111111111111",
         NULL
     };
-    ft_raycasting(map, &img);
+
+    char *map2[] = {
+        "111111",
+        "100001",
+        "100001",
+        "100001",
+        "111111",
+        NULL
+    };
+
+    char *map3[] = {
+        "11111111111111111111",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000000110000000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000001111100000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "10000000000000000001",
+        "11111111111111111111",
+        NULL
+    };
+
+    data.map = map;
+    while(data.map[data.map_length])
+        data.map_length++;
+
+    // ft_raycasting(map, &img);
     // while(map[y])
     // {
     //     x = 0;
@@ -77,9 +155,11 @@ int main(int argc, char **argv)
     //     }
     //     y++;
     // }
+    mlx_key_hook(data.img.win, key_hook, &data);
+    render(&data);
+    // render(&data);
+    // mlx_put_image_to_window(data.img.mlx, data.img.win, data.img.img, 0, 0);
 
-    mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-
-	mlx_loop(mlx);
+	mlx_loop(data.img.mlx);
     return (0);
 }
