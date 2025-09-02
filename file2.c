@@ -57,10 +57,10 @@ int ft_strlen(const char *s)
 }
 static int	is_out_of_bound(t_data *data, t_map *map_coord)
 {
-	if (map_coord->y <= 0 || map_coord->y >= data->map_length -1)
+	if (map_coord->y < 0 || map_coord->y >= data->map_length)
 		return (1);
-	if (map_coord->x <= 0
-		|| map_coord->x >= ft_strlen(data->map[map_coord->y]) -1)
+	if (map_coord->x < 0
+		|| map_coord->x >= ft_strlen(data->map[map_coord->y]))
 		return (1);
 	return (0);
 }
@@ -103,10 +103,14 @@ void	draw_line(t_data *data, int x)
 	int	y;
 
 	line_height = (int)HEIGHT / data->perp_wall;
-	start = (-line_height / 2) + (HEIGHT / 2);
+	// start = (-line_height / 2) + (HEIGHT / 2);
+	// if (start < 0)
+	// 	start = 0;
+	// end = (line_height / 2) + (HEIGHT / 2);
+	start = (-line_height >> 1) + (HEIGHT >> 1);
 	if (start < 0)
 		start = 0;
-	end = (line_height / 2) + (HEIGHT / 2);
+	end = (line_height >> 1) + (HEIGHT >> 1);
 	if (end >= HEIGHT)
 		end = HEIGHT - 1;
 	y = 0;

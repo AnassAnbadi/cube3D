@@ -27,7 +27,7 @@
 
 int key_hook(int keycode, t_data *data)
 {
-    // Camera plane
+
 
     if (keycode == UP)
     {
@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 								&data.img.endian);
                     
     data.player = (t_coord){1.5, 1.5}; // Player position
-    data.p_dir = (t_coord){-1, 0}; // Player direction vector
+    data.p_dir = (t_coord){1, 0}; // Player direction vector
     data.plane = (t_coord){0, 0.66}; 
     char *map[] = {
         "11111111111111111111",

@@ -12,7 +12,7 @@
 #define PI 3.14159265358979323846
 
 #define BLUE 0x0000FF
-#define GREEN 0x00FF00
+#define GREEN 0x00FFA0
 
 // # define TITLE "cub3D"
 // # define HEIGHT 720
