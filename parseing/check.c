@@ -8,6 +8,21 @@ int is_texture_line(line)
             ft_strncmp(line, "WE ", 3) == 0);
 }
 
+char *ft_get_value(char *line)
+{
+    char *end;
+    while (*line && (*line == ' '))
+        line++;
+    if (*line == '\0')
+        ft_exit(EXIT_FAILURE);
+    end  = line + ft_strlen(line) - 1;
+    while (end > line && (*end == ' '))
+        end--;
+    end++;
+
+    return (ft_substr(line, 0, end - line));
+}
+
 void parse_texture_line(t_game *game, char *line)
 {
     char *path;
@@ -18,17 +33,17 @@ void parse_texture_line(t_game *game, char *line)
     }
     else if (ft_strncmp(line, "SO ", 3) == 0)
     {
-        path = ft_strdup(line + 3);
+        path = ft_get_value(line + 3);
         game->config.south_texture = path;
     }
     else if (ft_strncmp(line, "EA ", 3) == 0)
     {
-        path = ft_strdup(line + 3);
+        path = ft_get_value(line + 3);
         game->config.east_texture = path;
     }
     else if (ft_strncmp(line, "WE ", 3) == 0)
     {
-        path = ft_strdup(line + 3);
+        path = ft_get_value(line + 3);
         game->config.west_texture = path;
     }
     else
