@@ -68,6 +68,17 @@ typedef struct s_mlx
 	int		endian;
 }				t_mlx;
 
+typedef struct	s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_texture;
+
 typedef struct	s_data {
 
 	t_mlx		img;
@@ -78,6 +89,7 @@ typedef struct	s_data {
 	t_coord		delta;
 	t_coord		side;
 	t_wall		wall;
+	t_texture	tex;
 	float 		perp_wall;	
 	char		**map;
 	int 		map_length;
@@ -89,6 +101,8 @@ typedef struct	s_data {
 
 
 void			render(t_data *data);
+void	ft_put_texture(t_data *data, int x, int y, int line_height, int end);
+void	ft_put_px(t_data *data, int x, int y, int color);
 
 
 #endif

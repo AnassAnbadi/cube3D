@@ -95,6 +95,45 @@ static void	dda(t_data *data, t_coord *step, t_map *map_coord)
 	}
 }
 
+// void ft_put_texture(t_data *data, int x, int line_height)
+// {
+// 	int y;
+// 	int tex_x;
+// 	int tex_y;
+// 	int color;
+// 	double wall_x;
+// 	double step;
+// 	double tex_pos;
+
+// 	if (data->wall == EAST || data->wall == WEST)
+// 		wall_x = data->player.y + data->perp_wall * data->ray_dir.y;
+// 	else
+// 		wall_x = data->player.x + data->perp_wall * data->ray_dir.x;
+// 	wall_x -= floor(wall_x);
+
+// 	tex_x = (int)(wall_x * (double)TEX_WIDTH);
+// 	if ((data->wall == EAST || data->wall == WEST) && data->ray_dir.x > 0)
+// 		tex_x = TEX_WIDTH - tex_x - 1;
+// 	if ((data->wall == NORTH || data->wall == SOUTH) && data->ray_dir.y < 0)
+// 		tex_x = TEX_WIDTH - tex_x - 1;
+
+// 	step = 1.0 * TEX_HEIGHT / line_height;
+// 	tex_pos = ( -line_height / 2 + HEIGHT / 2) * step;
+	
+// 	y = (-line_height / 2) + (HEIGHT / 2);
+// 	if (y < 0)
+// 		y = 0;
+// 	while (y <= (line_height / 2) + (HEIGHT / 2) && y < HEIGHT)
+// 	{
+// 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
+// 		tex_pos += step;
+// 		// Assuming you have a function get_texture_color that retrieves the color from the texture
+// 		color = get_texture_color(data, tex_x, tex_y); // You need to implement this function
+// 		ft_put_px(data, x, y, color);
+// 		y++;
+// 	}
+// }
+
 void	draw_line(t_data *data, int x)
 {
 	int	line_height;
@@ -117,7 +156,7 @@ void	draw_line(t_data *data, int x)
 	while (y < start)
 		ft_put_px(data, x, y++, BLUE);
 	while (y <= end)
-		ft_put_px(data, x, y++, 0x0000);
+		ft_put_texture(data, x, y++, line_height, end); //ft_put_px(data, x, y++, 0x0000);
 	while (y < HEIGHT)
 		ft_put_px(data, x, y++, GREEN);
 }

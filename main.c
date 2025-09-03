@@ -157,6 +157,16 @@ int main(int argc, char **argv)
     data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
     data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length,
 								&data.img.endian);
+
+    data.tex.img = mlx_xpm_file_to_image(data.img.mlx, "./texture.xpm", &data.tex.width, &data.tex.height);
+    if (!data.tex.img)
+    {
+        printf("Error: failed to load tex2 \n");
+        exit(1);
+    }
+    data.tex.addr = mlx_get_data_addr(data.tex.img, &data.tex.bits_per_pixel,
+                                 &data.tex.line_length, &data.tex.endian);
+
                     
     data.player = (t_coord){1.5, 1.5}; // Player position
     data.p_dir = (t_coord){1, 0}; // Player direction vector
@@ -197,8 +207,8 @@ int main(int argc, char **argv)
         "10000000000000000001",
         "10000000000000000001",
         "10000000000000000001",
-        "10000000000000000001",
-        "10000000000000000001",
+        "10000000010000000001",
+        "10000000010000000001",
         "10000000110000000001",
         "10000000000000000001",
         "10000000000000000001",
@@ -207,9 +217,9 @@ int main(int argc, char **argv)
         "10000000000000000001",
         "10000000000000000001",
         "10000000000000000001",
-        "10000000000000000001",
-        "10000000000000000001",
-        "11111111111111111111",
+        "10000000000000000001111111111111111",
+        "100000000000000000000000000000001",
+        "111111111111111111111111111111111",
         NULL
     };
 
