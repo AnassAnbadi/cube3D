@@ -81,6 +81,7 @@ typedef struct	s_data {
 	float 		perp_wall;	
 	char		**map;
 	int 		map_length;
+	int 		key_on;
 	
 
 }				t_data;

@@ -25,6 +25,29 @@
 //     }
 // }
 
+
+
+
+int mouse_move(int x, int y, t_data *data)
+{
+    static int last_x = WIDTH / 2;
+    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+        return (0);
+    int delta_x = x - last_x;
+    last_x = x;
+    double angle = delta_x * 0.005; // Sensitivity factor  
+    double old_dir_x = data->p_dir.x;
+    data->p_dir.x = data->p_dir.x * cos(angle) - data->p_dir.y * sin(angle);
+    data->p_dir.y = old_dir_x * sin(angle) + data->p_dir.y * cos(angle);
+    double old_plane_x = data->plane.x;
+    data->plane.x = data->plane.x * cos(angle) - data->plane.y * sin(angle);
+    data->plane.y = old_plane_x * sin(angle) + data->plane.y * cos(angle);
+    // printf("Mouse X: %d, Delta X: %d, Angle: %f\n", x, delta_x, angle);
+    render(data);
+
+    return (0);
+}
+
 int key_hook(int keycode, t_data *data)
 {
 
@@ -46,23 +69,27 @@ int key_hook(int keycode, t_data *data)
     if (keycode == LEFT)
     {
         double old_dir_x = data->p_dir.x;
-        data->p_dir.x = data->p_dir.x * cos(-ROT_SPEED) - data->p_dir.y * sin(-ROT_SPEED);
-        data->p_dir.y = old_dir_x * sin(-ROT_SPEED) + data->p_dir.y * cos(-ROT_SPEED);
+        data->p_dir.x = data->p_dir.x * cos(ROT_SPEED) + data->p_dir.y * sin(ROT_SPEED);
+        data->p_dir.y = -old_dir_x * sin(ROT_SPEED) + data->p_dir.y * cos(ROT_SPEED);
         double old_plane_x = data->plane.x;
-        data->plane.x = data->plane.x * cos(-ROT_SPEED) - data->plane.y * sin(-ROT_SPEED);
-        data->plane.y = old_plane_x * sin(-ROT_SPEED) + data->plane.y * cos(-ROT_SPEED);
+        data->plane.x = data->plane.x * cos(ROT_SPEED) + data->plane.y * sin(ROT_SPEED);
+        data->plane.y = -old_plane_x * sin(ROT_SPEED) + data->plane.y * cos(ROT_SPEED);
     }
     if (keycode == RIGHT)
     {
         double old_dir_x = data->p_dir.x;
         data->p_dir.x = data->p_dir.x * cos(ROT_SPEED) - data->p_dir.y * sin(ROT_SPEED);
         data->p_dir.y = old_dir_x * sin(ROT_SPEED) + data->p_dir.y * cos(ROT_SPEED);
+        double old_plane_x = data->plane.x;
+        data->plane.x = data->plane.x * cos(ROT_SPEED) - data->plane.y * sin(ROT_SPEED);
+        data->plane.y = old_plane_x * sin(ROT_SPEED) + data->plane.y * cos(ROT_SPEED);
     }
-    printf("Player p_dir: (%f, %f)\n", data->p_dir.x, data->p_dir.y);
-    printf("Player plane: (%f, %f)\n", data->plane.x, data->plane.y);
-    printf("Player position: (%f, %f)\n", data->player.x, data->player.y);
-    mlx_clear_window(data->img.mlx, data->img.win);
+    // printf("Player p_dir: (%f, %f)\n", data->p_dir.x, data->p_dir.y);
+    // printf("Player plane: (%f, %f)\n", data->plane.x, data->plane.y);
+    // printf("Player position: (%f, %f)\n", data->player.x, data->player.y);
+    // mlx_clear_window(data->img.mlx, data->img.win);
     render(data);
+
     return (0);
 }
 
@@ -83,7 +110,8 @@ int main(int argc, char **argv)
                     
     data.player = (t_coord){1.5, 1.5}; // Player position
     data.p_dir = (t_coord){1, 0}; // Player direction vector
-    data.plane = (t_coord){0, 0.66}; 
+    data.plane = (t_coord){0, 0.66};
+    // data.data->key_on = 0;
     char *map[] = {
         "11111111111111111111",
         "10000000000000000001",
@@ -155,7 +183,14 @@ int main(int argc, char **argv)
     //     }
     //     y++;
     // }
+
+    // mlx_hook(data.win, 2, 1L<<0, key_press, &data);
+    // mlx_hook(data.win, 3, 1L<<1, key_release, &data);
+
     mlx_key_hook(data.img.win, key_hook, &data);
+ 
+
+    mlx_hook(data.img.win, 6, 0, mouse_move, &data);
     render(&data);
     // render(&data);
     // mlx_put_image_to_window(data.img.mlx, data.img.win, data.img.img, 0, 0);
