@@ -35,8 +35,8 @@
 # define RIGHT 124
 
 /* Player speed */
-# define MOVE_SPEED 0.5
-# define ROT_SPEED 0.1
+# define MOVE_SPEED 0.1
+# define ROT_SPEED 0.05
 
 
 typedef enum e_wall
@@ -81,7 +81,8 @@ typedef struct	s_data {
 	float 		perp_wall;	
 	char		**map;
 	int 		map_length;
-	int 		key_on;
+	int 		key_fleche;
+	int 		key_board;
 	
 
 }				t_data;
