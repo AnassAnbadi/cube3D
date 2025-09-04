@@ -140,23 +140,42 @@ void	draw_line(t_data *data, int x)
 	int	start;
 	int	end;
 	int	y;
+	double wall_x;
 
 	line_height = (int)HEIGHT / data->perp_wall;
+	// if (line_height > HEIGHT)
+	// 	line_height = HEIGHT;
 	// start = (-line_height / 2) + (HEIGHT / 2);
 	// if (start < 0)
 	// 	start = 0;
 	// end = (line_height / 2) + (HEIGHT / 2);
+	
 	start = (-line_height >> 1) + (HEIGHT >> 1);
-	if (start < 0)
-		start = 0;
+	// if (start < 0)
+	// 	start = 0;
 	end = (line_height >> 1) + (HEIGHT >> 1);
-	if (end >= HEIGHT)
-		end = HEIGHT - 1;
+	// if (end >= HEIGHT)
+	// 	end = HEIGHT - 1;
 	y = 0;
+
+	if (data->wall == EAST || data->wall == WEST)
+		wall_x = data->player.y + data->perp_wall * data->ray_dir.y;
+	else
+		wall_x = data->player.x + data->perp_wall * data->ray_dir.x;
+	wall_x -= floor(wall_x);
+
+	double tex_x;
+	tex_x = (int)(wall_x * (double)data->tex.width);
+	if ((data->wall == EAST || data->wall == WEST) && data->ray_dir.x > 0)
+		tex_x = data->tex.width - tex_x - 1;
+	if ((data->wall == NORTH || data->wall == SOUTH) && data->ray_dir.y < 0)
+		tex_x = data->tex.width - tex_x - 1;
+
+
 	while (y < start)
 		ft_put_px(data, x, y++, BLUE);
 	while (y <= end)
-		ft_put_texture(data, x, y++, line_height, end); //ft_put_px(data, x, y++, 0x0000);
+		ft_put_texture(data, x, y++, line_height, start, (int)tex_x); //ft_put_px(data, x, y++, 0x0000);
 	while (y < HEIGHT)
 		ft_put_px(data, x, y++, GREEN);
 }

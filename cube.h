@@ -9,14 +9,13 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 #define COTE 64
-#define PI 3.14159265358979323846
+
 
 #define BLUE 0x0000FF
 #define GREEN 0x00FFA0
 
-// # define TITLE "cub3D"
-// # define HEIGHT 720
-// # define WIDTH 1280
+# define TITLE "cub3D"
+
 
 /* Exit keys */
 # define ESC 53
@@ -77,6 +76,7 @@ typedef struct	s_texture
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		_x;
 }				t_texture;
 
 typedef struct	s_data {
@@ -101,7 +101,7 @@ typedef struct	s_data {
 
 
 void			render(t_data *data);
-void	ft_put_texture(t_data *data, int x, int y, int line_height, int end);
+void	ft_put_texture(t_data *data, int x, int y, int line_height, int start, int tex_x);
 void	ft_put_px(t_data *data, int x, int y, int color);
 
 

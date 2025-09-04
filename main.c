@@ -59,6 +59,7 @@ int move_( t_data *data)
             data->player.x += data->p_dir.x * MOVE_SPEED;
         if (data->map[(int)(data->player.y + data->p_dir.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
             data->player.y += data->p_dir.y * MOVE_SPEED;
+            // data->tex._x = (data->tex._x + 6) % data->tex.width;
     }
     if (data->key_fleche == DOWN)
     {
@@ -153,7 +154,7 @@ int main(int argc, char **argv)
     (void) argv;
 
 	data.img.mlx = mlx_init();
-	data.img.win = mlx_new_window(data.img.mlx, WIDTH, HEIGHT, "Cube_fucking_3D!");
+	data.img.win = mlx_new_window(data.img.mlx, WIDTH, HEIGHT, TITLE);
     data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
     data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length,
 								&data.img.endian);
@@ -172,6 +173,7 @@ int main(int argc, char **argv)
     data.p_dir = (t_coord){1, 0}; // Player direction vector
     data.plane = (t_coord){0, 0.66};
     data.key_board = -1;
+    data.tex._x = 0;
     char *map[] = {
         "11111111111111111111",
         "10000000000000000001",
