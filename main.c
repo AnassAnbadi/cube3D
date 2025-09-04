@@ -128,7 +128,7 @@ int move_( t_data *data)
 
 int key_press(int keycode, t_data *data)
 {
-    if (keycode == ESC) // Escape key
+    if (keycode == ESC ) // Escape key
         exit(0);//////////////////////////////////////////////////
     if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
         data->key_fleche = keycode;
@@ -147,6 +147,13 @@ int key_release(int keycode, t_data *data)
     return (0);
 }
 
+int close_window(void *param)
+{
+    (void)param;
+    exit(0);
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
     t_data  data = {0};
@@ -156,8 +163,7 @@ int main(int argc, char **argv)
 	data.img.mlx = mlx_init();
 	data.img.win = mlx_new_window(data.img.mlx, WIDTH, HEIGHT, TITLE);
     data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
-    data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length,
-								&data.img.endian);
+    data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 
     data.tex.img = mlx_xpm_file_to_image(data.img.mlx, "./texture.xpm", &data.tex.width, &data.tex.height);
     if (!data.tex.img)
@@ -173,7 +179,6 @@ int main(int argc, char **argv)
     data.p_dir = (t_coord){1, 0}; // Player direction vector
     data.plane = (t_coord){0, 0.66};
     data.key_board = -1;
-    data.tex._x = 0;
     char *map[] = {
         "11111111111111111111",
         "10000000000000000001",
@@ -217,9 +222,9 @@ int main(int argc, char **argv)
         "10000001111100000001",
         "10000000000000000001",
         "10000000000000000001",
-        "10000000000000000001",
-        "10000000000000000001",
-        "10000000000000000001111111111111111",
+        "100000000000000000011111111111111",
+        "100000000000000000000000000000001",
+        "100000000000000000011111111111101",
         "100000000000000000000000000000001",
         "111111111111111111111111111111111",
         NULL
@@ -255,6 +260,7 @@ int main(int argc, char **argv)
     mlx_hook(data.img.win, 3, 1L<<1, key_release, &data);   // Key release
     mlx_loop_hook(data.img.mlx, move_, &data);             
     mlx_hook(data.img.win, 6, 0, mouse_move, &data);
+    mlx_hook(data.img.win, 17, 0, close_window, NULL);
    
     // render(&data);
     // mlx_put_image_to_window(data.img.mlx, data.img.win, data.img.img, 0, 0);

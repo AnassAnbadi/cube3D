@@ -76,7 +76,6 @@ typedef struct	s_texture
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		_x;
 }				t_texture;
 
 typedef struct	s_data {
