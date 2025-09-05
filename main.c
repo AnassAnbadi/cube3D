@@ -93,30 +93,30 @@ int move_( t_data *data)
 
     if (data->key_board == W)
     {
-        if (data->map[(int)(data->player.y)][(int)(data->player.x + data->p_dir.x * MOVE_SPEED)] == '0')
+        if (data->map[(int)(data->player.y)][(int)(data->player.x + data->p_dir.x * MOVE_SPEED*4)] == '0')
             data->player.x += data->p_dir.x * MOVE_SPEED;
-        if (data->map[(int)(data->player.y + data->p_dir.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
+        if (data->map[(int)(data->player.y + data->p_dir.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
             data->player.y += data->p_dir.y * MOVE_SPEED;
     }
     if (data->key_board == S)
     {
-        if (data->map[(int)(data->player.y)][(int)(data->player.x - data->p_dir.x * MOVE_SPEED)] == '0')
+        if (data->map[(int)(data->player.y)][(int)(data->player.x - data->p_dir.x * MOVE_SPEED*4)] == '0')
             data->player.x -= data->p_dir.x * MOVE_SPEED;
-        if (data->map[(int)(data->player.y - data->p_dir.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
+        if (data->map[(int)(data->player.y - data->p_dir.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
             data->player.y -= data->p_dir.y * MOVE_SPEED;
     }
     if (data->key_board == D)
     {
-        if (data->map[(int)(data->player.y)][(int)(data->player.x + data->plane.x * MOVE_SPEED)] == '0')
+        if (data->map[(int)(data->player.y)][(int)(data->player.x + data->plane.x * MOVE_SPEED * 4)] == '0')
             data->player.x += data->plane.x * MOVE_SPEED;
-        if (data->map[(int)(data->player.y + data->plane.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
+        if (data->map[(int)(data->player.y + data->plane.y * MOVE_SPEED *4)][(int)(data->player.x)] == '0')
             data->player.y += data->plane.y * MOVE_SPEED;
     }
     if (data->key_board == A)
     {
-       if (data->map[(int)(data->player.y)][(int)(data->player.x - data->plane.x * MOVE_SPEED)] == '0')
+       if (data->map[(int)(data->player.y)][(int)(data->player.x - data->plane.x * MOVE_SPEED*4)] == '0')
             data->player.x -= data->plane.x * MOVE_SPEED;
-        if (data->map[(int)(data->player.y - data->plane.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
+        if (data->map[(int)(data->player.y - data->plane.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
             data->player.y -= data->plane.y * MOVE_SPEED;
     }
     if(data->key_fleche != 0 || data->key_board != -1){

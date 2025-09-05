@@ -95,87 +95,40 @@ static void	dda(t_data *data, t_coord *step, t_map *map_coord)
 	}
 }
 
-// void ft_put_texture(t_data *data, int x, int line_height)
-// {
-// 	int y;
-// 	int tex_x;
-// 	int tex_y;
-// 	int color;
-// 	double wall_x;
-// 	double step;
-// 	double tex_pos;
-
-// 	if (data->wall == EAST || data->wall == WEST)
-// 		wall_x = data->player.y + data->perp_wall * data->ray_dir.y;
-// 	else
-// 		wall_x = data->player.x + data->perp_wall * data->ray_dir.x;
-// 	wall_x -= floor(wall_x);
-
-// 	tex_x = (int)(wall_x * (double)TEX_WIDTH);
-// 	if ((data->wall == EAST || data->wall == WEST) && data->ray_dir.x > 0)
-// 		tex_x = TEX_WIDTH - tex_x - 1;
-// 	if ((data->wall == NORTH || data->wall == SOUTH) && data->ray_dir.y < 0)
-// 		tex_x = TEX_WIDTH - tex_x - 1;
-
-// 	step = 1.0 * TEX_HEIGHT / line_height;
-// 	tex_pos = ( -line_height / 2 + HEIGHT / 2) * step;
-	
-// 	y = (-line_height / 2) + (HEIGHT / 2);
-// 	if (y < 0)
-// 		y = 0;
-// 	while (y <= (line_height / 2) + (HEIGHT / 2) && y < HEIGHT)
-// 	{
-// 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
-// 		tex_pos += step;
-// 		// Assuming you have a function get_texture_color that retrieves the color from the texture
-// 		color = get_texture_color(data, tex_x, tex_y); // You need to implement this function
-// 		ft_put_px(data, x, y, color);
-// 		y++;
-// 	}
-// }
-
-void	draw_line(t_data *data, int x)
+int ft_find_tex_x(t_data *data)
 {
-	int	line_height;
-	int	start;
-	int	end;
-	int	y;
 	double wall_x;
-
-	line_height = (int)HEIGHT / data->perp_wall;
-	// if (line_height > HEIGHT)
-	// 	line_height = HEIGHT;
-	// start = (-line_height / 2) + (HEIGHT / 2);
-	// if (start < 0)
-	// 	start = 0;
-	// end = (line_height / 2) + (HEIGHT / 2);
-	
-	start = (-line_height >> 1) + (HEIGHT >> 1);
-	// if (start < 0)
-	// 	start = 0;
-	end = (line_height >> 1) + (HEIGHT >> 1);
-	// if (end >= HEIGHT)
-	// 	end = HEIGHT - 1;
-	y = 0;
+	double tex_x;
 
 	if (data->wall == EAST || data->wall == WEST)
 		wall_x = data->player.y + data->perp_wall * data->ray_dir.y;
 	else
 		wall_x = data->player.x + data->perp_wall * data->ray_dir.x;
 	wall_x -= floor(wall_x);
-
-	double tex_x;
 	tex_x = (int)(wall_x * (double)data->tex.width);
 	if ((data->wall == EAST || data->wall == WEST) && data->ray_dir.x > 0)
 		tex_x = data->tex.width - tex_x - 1;
 	if ((data->wall == NORTH || data->wall == SOUTH) && data->ray_dir.y < 0)
 		tex_x = data->tex.width - tex_x - 1;
+	return ((int)tex_x);
+}
 
+void	draw_line(t_data *data, int x, int y)
+{
+	int	line_height;
+	int	start;
+	int	end;
+	int tex_x;
 
+	line_height = (int)HEIGHT / data->perp_wall;
+	start = (HEIGHT >> 1) - (line_height >> 1);
+	end = (line_height >> 1) + (HEIGHT >> 1);
+
+	tex_x = ft_find_tex_x(data);
 	while (y < start)
 		ft_put_px(data, x, y++, BLUE);
 	while (y <= end)
-		ft_put_texture(data, x, y++, line_height, start, (int)tex_x); //ft_put_px(data, x, y++, 0x0000);
+		ft_put_texture(data, x, y++, line_height, start, tex_x);// (int)tex_x);
 	while (y < HEIGHT)
 		ft_put_px(data, x, y++, GREEN);
 }
@@ -187,9 +140,6 @@ void	render(t_data *data)
     t_map map_coord = {0};
 	t_coord step = {0};
 
-    // data->player = (t_coord){2, 1}; // Player position
-    // data->p_dir = (t_coord){1, 1}; // Player direction vector
-    // data->plane = (t_coord){-0.66, 0.66}; // Camera plane
 	x = 0;
 	while (x < WIDTH)
 	{
@@ -198,6 +148,7 @@ void	render(t_data *data)
 		data->ray_dir.y = data->p_dir.y + (data->plane.y * camera_x);
 		map_coord.x = (int)data->player.x;
 		map_coord.y = (int)data->player.y;
+		// map_coord =(t_coord){(int)(data->player.x), (int)data->player.y};
 		init_delta(data);
 		init_step(data, &step, &map_coord);
 		dda(data, &step, &map_coord);
@@ -205,9 +156,8 @@ void	render(t_data *data)
 			data->perp_wall = (data->side.x - data->delta.x);
 		else
 			data->perp_wall = (data->side.y - data->delta.y);
-		draw_line(data, x);
+		draw_line(data, x, 0);
 		x++;
 	}
     mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
-	// mlx_put_image_to_window(cube->mlx, cube->win, cube->frame.img, 0, 0);
 }
