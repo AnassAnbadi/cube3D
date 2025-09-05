@@ -58,27 +58,38 @@ void parse_color_line(t_game *game, char *line)
 {
     char **colors;
     int r, g, b;
+    int i = 0;
     if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
-    {
+    {        
         colors = ft_split(line + 2, ',');
         if (!colors || !colors[0] || !colors[1] || !colors[2] || ft_strlen(colors) != 3)
-            ft_exit(EXIT_FAILURE);
+            ft_error("Invalid color format\n");
         r = ft_atoi(colors[0]);
         g = ft_atoi(colors[1]);
         b = ft_atoi(colors[2]);
         if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-            ft_exit(EXIT_FAILURE);
+            ft_error("Color values must be between 0 and 255\n");
         if (ft_strncmp(line, "F ", 2) == 0)
             game->config.floor_color = (r << 16) | (g << 8) | b;
         else
             game->config.ceiling_color = (r << 16) | (g << 8) | b;
     }
+    else
+        ft_error("Invalid color line\n");
 }
-void ft_scipe_empty_lines(char **line, int fd)
+int is_space_only(char *line)
 {
-    while (*line && ft_strlen(*line) == 0)
+    int i = 0;
+    while (line[i])
     {
-        free(*line);
-        *line = get_next_line(fd);
+        if (line[i] != ' ' && line[i] != '\n')
+            return (0);
+        i++;
     }
+    return (1);
+}
+void ft_scipe_empty_spaces_line(char **line, int fd)
+{
+    while (*line && ft_strlen(*line) == 0 || is_space_only(*line))
+        *line = get_next_line(fd);
 }

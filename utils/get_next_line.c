@@ -6,7 +6,7 @@
 /*   By: aanbadi <aanbadi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 23:33:14 by aanbadi           #+#    #+#             */
-/*   Updated: 2025/09/03 15:52:24 by aanbadi          ###   ########.fr       */
+/*   Updated: 2025/09/04 20:34:29 by aanbadi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
-	temp_buffer = malloc((size_t)BUFFER_SIZE + 1);
+	temp_buffer =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                malloc((size_t)BUFFER_SIZE + 1);
 	if (!temp_buffer)
 		return (NULL);
 	stored_data = read_from_file(fd, temp_buffer, stored_data);

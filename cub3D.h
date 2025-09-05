@@ -12,6 +12,12 @@
 #define EXIT_SUCCESS 0
 #define BUFFER_SIZE 32
 
+typedef struct s_garbage_collector
+{
+    void *ptr;
+    struct s_garbage_collector *next;
+} t_gc;
+
 typedef struct s_vector
 {
     float x;
@@ -41,21 +47,20 @@ typedef struct s_config {
     int ceiling_color; // RGB color for the ceiling
 } t_config;
 
-typedef struct s_map {
-    char **grid;
-    int width;
-    int height;
-} t_map;
-
 typedef struct s_game {
     void *mlx;
     void *window;
     t_img *img;
     t_player player;
     t_config config;
-    t_map map;
+    char **map;
     int should_close;
 } t_game;
+
+typedef struct s_mock_map {
+    char *line;
+    struct s_mock_map *next;
+} t_mock_map;
 
 size_t  ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
@@ -66,5 +71,6 @@ char	*get_next_line(int fd);
 void    *ft_malloc(size_t size);
 char    **ft_split(char const *s, char c);
 char    *ft_atoa(int n);
+void ft_scipe_empty_spaces_line(char **line, int fd);
 
 #endif
