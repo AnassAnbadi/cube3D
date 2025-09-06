@@ -1,6 +1,6 @@
-#include "cub3D.h"
+#include "../cub3D.h"
 
-int is_texture_line(line)
+int is_texture_line(char *line)
 {
     return (ft_strncmp(line, "NO ", 3) == 0 ||
             ft_strncmp(line, "SO ", 3) == 0 ||
@@ -58,11 +58,11 @@ void parse_color_line(t_game *game, char *line)
 {
     char **colors;
     int r, g, b;
-    int i = 0;
+    // int i = 0;
     if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
     {        
         colors = ft_split(line + 2, ',');
-        if (!colors || !colors[0] || !colors[1] || !colors[2] || ft_strlen(colors) != 3)
+        if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3] != NULL)
             ft_error("Invalid color format\n");
         r = ft_atoi(colors[0]);
         g = ft_atoi(colors[1]);
@@ -90,6 +90,6 @@ int is_space_only(char *line)
 }
 void ft_scipe_empty_spaces_line(char **line, int fd)
 {
-    while (*line && ft_strlen(*line) == 0 || is_space_only(*line))
+    while (*line && (ft_strlen(*line) == 0 || is_space_only(*line)))
         *line = get_next_line(fd);
 }

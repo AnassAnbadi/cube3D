@@ -6,11 +6,11 @@
 /*   By: aanbadi <aanbadi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 23:33:14 by aanbadi           #+#    #+#             */
-/*   Updated: 2025/09/04 20:34:29 by aanbadi          ###   ########.fr       */
+/*   Updated: 2025/09/06 20:56:50 by aanbadi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../cub3D.h"
 
 static char	*read_from_file(int fd, char *temp_buffer, char *stored_data)
 {
@@ -75,7 +75,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*temp_buffer;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	temp_buffer =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                malloc((size_t)BUFFER_SIZE + 1);
 	if (!temp_buffer)

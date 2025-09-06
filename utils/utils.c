@@ -6,11 +6,11 @@
 /*   By: aanbadi <aanbadi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 23:32:47 by aanbadi           #+#    #+#             */
-/*   Updated: 2025/09/04 20:57:50 by aanbadi          ###   ########.fr       */
+/*   Updated: 2025/09/06 20:57:07 by aanbadi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../cub3D.h"
 
 size_t	ft_strlen(const char *s)
 {

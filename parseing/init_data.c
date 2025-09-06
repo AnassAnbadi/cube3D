@@ -12,7 +12,7 @@ void scipe_spaces_line(char **line) {
 }
 
 void init_param(t_game *game, char *line, int fd) {
-    static int i;
+    // static int i;
     game->config.north_texture = NULL;
     game->config.south_texture = NULL;
     game->config.east_texture = NULL;
@@ -31,10 +31,10 @@ void init_param(t_game *game, char *line, int fd) {
         ft_scipe_empty_spaces_line(&line, fd);
     }
     if (line)
-        ft_scipe_empty_lines(&line, fd);
+        ft_scipe_empty_spaces_line(&line, fd);
     else
         ft_error("No map data found\n");
-    init_mock_map(line, fd);
+    init_mock_map(game, line, fd);
     
 }
 
@@ -47,7 +47,12 @@ int is_empty_or_all_space(char *line) {
     return (1);
 }
 
-void init_data_map(t_mock_map *head, t_game game) {
+// void check_player(char **map)
+// {
+
+// }
+
+void init_data_map(t_mock_map *head, t_game *game) {
     t_mock_map *current;
     int map_length;
     int i;
@@ -58,17 +63,28 @@ void init_data_map(t_mock_map *head, t_game game) {
         map_length++;
         current = current->next;
     }
-    game.map = ft_malloc(sizeof(char *) * (map_length + 1));
-    game.map[map_length] = NULL;
+    game->map = ft_malloc(sizeof(char *) * (map_length + 1));
+    game->map[map_length] = NULL;
     current = head;
     i = map_length - 1;
     while (current) {
-        game.map[i] = current->line;
+        game->map[i] = current->line;
         current = current->next;
         i--;
     }
-    check_map(game.map);
-    check_player(game.map);
+    check_map(game->map);
+    // check_player(game.map);
+}
+
+int	ft_isin(const char c, const char *charset)
+{
+	while (*charset)
+	{
+		if (*charset == c)
+			return (1);
+		charset++;
+	}
+	return (0);
 }
 void check_map(char **map) {
     int i;
@@ -97,7 +113,7 @@ void check_map(char **map) {
         }
     }
 }
-void init_mock_map(t_game game, char *line, int fd) {
+void init_mock_map(t_game *game, char *line, int fd) {
     t_mock_map *head;
     t_mock_map *current;
 
@@ -113,20 +129,40 @@ void init_mock_map(t_game game, char *line, int fd) {
     }
     init_data_map(head, game);
 }
-init_data(t_game *game, char *filename) {
 
-char *line;
-int fd;
-
-fd = open(filename, O_RDONLY);
-if (fd < 0)
-    ft_exit(EXIT_FAILURE);
-line = get_next_line(fd);
-ft_scipe_empty_lines(&line, fd);
-init_param(game, line, fd);
-
+void print_map(char **map)
 {
+    int i =0;
+    int j =0;
+    while (map[i])
+    {
+        j=0;
+        while (map[i][j])
+        {
+            printf("%c",map[i][j]);
+            j++;
+        }
+        printf("}\n");
+        i++;
+    }
     
 }
+void init_data(t_game *game, char *filename)
+{
+
+    char *line;
+    int fd;
+    printf("hhhhhh2");
+    fd = open(filename, O_RDONLY);
+    printf("hhhhhh3");
+    if (fd < 0)
+        ft_exit(EXIT_FAILURE);
+    printf("hhhhhh4");
+    line = get_next_line(fd);
+    ft_scipe_empty_spaces_line(&line, fd);
+    printf("hhhhhh5");
+    init_param(game, line, fd);
+    printf("hhhhhh6");
+    print_map(game->map);
 
 }

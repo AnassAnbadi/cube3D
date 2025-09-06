@@ -28,11 +28,6 @@ void *ft_malloc(size_t size)
     *gc_list = new_node;
     return (ptr);
 }
-void ft_exit(int code)
-{
-   ft_free();
-    exit(code);
-}
 
 void ft_free(void)
 {
@@ -57,4 +52,9 @@ void ft_error(const char *msg)
     perror("Error\n");
     perror(msg);
     ft_exit(EXIT_FAILURE);
+}
+void ft_exit(int code)
+{
+   ft_free();
+    exit(code);
 }
