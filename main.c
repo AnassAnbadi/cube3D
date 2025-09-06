@@ -117,7 +117,21 @@
 //     exit(0);
 //     return (0);
 // }
+t_texture	open_texture(void *mlx, char *text)
+{
+    t_texture tex;
 
+    tex.img = mlx_xpm_file_to_image(mlx, text, &tex.width, &tex.height);
+    if (!tex.img)
+    {
+        printf("Error: failed to load tex2 \n");
+        exit(1);
+    }
+    tex.addr = mlx_get_data_addr(tex.img, &tex.bits_per_pixel,
+                                 &tex.line_length, &tex.endian);
+
+    return (tex);
+}
 int main(int argc, char **argv)
 {
     t_data  data = {0};
@@ -129,14 +143,16 @@ int main(int argc, char **argv)
     data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
     data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 
-    data.tex.img = mlx_xpm_file_to_image(data.img.mlx, "./texture.xpm", &data.tex.width, &data.tex.height);
-    if (!data.tex.img)
-    {
-        printf("Error: failed to load tex2 \n");
-        exit(1);
-    }
-    data.tex.addr = mlx_get_data_addr(data.tex.img, &data.tex.bits_per_pixel,
-                                 &data.tex.line_length, &data.tex.endian);
+    // data.tex.img = mlx_xpm_file_to_image(data.img.mlx, "./texture.xpm", &data.tex.width, &data.tex.height);
+    // if (!data.tex.img)
+    // {
+    //     printf("Error: failed to load tex2 \n");
+    //     exit(1);
+    // }
+    // data.tex.addr = mlx_get_data_addr(data.tex.img, &data.tex.bits_per_pixel,
+    //                              &data.tex.line_length, &data.tex.endian);
+
+    data.tex = open_texture(data.img.mlx, "./texture.xpm");
 
                     
     data.player = (t_coord){1.5, 1.5}; // Player position
