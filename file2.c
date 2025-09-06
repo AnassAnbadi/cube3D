@@ -4,24 +4,25 @@ void	ft_put_px(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->img.addr + (y * data->img.line_length + x * (data->img.bits_per_pixel / 8));
+	dst = data->img.addr + (y * data->img.line_length
+			+ x * (data->img.bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
 
-static void	init_delta(t_data *data)
+static void	ft_get_delta(t_data *data)
 {
-	if (data->ray_dir.x == 0)
-		data->delta.x = 1e30;
-	else
-		data->delta.x = fabs(1 / data->ray_dir.x);
 	if (data->ray_dir.y == 0)
 		data->delta.y = 1e30;
 	else
 		data->delta.y = fabs(1 / data->ray_dir.y);
+	if (data->ray_dir.x == 0)
+		data->delta.x = 1e30;
+	else
+		data->delta.x = fabs(1 / data->ray_dir.x);
 }
 
-static void	init_step(t_data *data, t_coord *step, t_map *map_coord)
+static void	ft_get_step(t_data *data, t_coord *step, t_map *map_coord)
 {
 	if (data->ray_dir.x < 0)
 	{
@@ -65,11 +66,10 @@ static void	init_step(t_data *data, t_coord *step, t_map *map_coord)
 // 	return (0);
 // }
 
-static void	dda(t_data *data, t_coord *step, t_map *map_coord)
+static void	ft_dda(t_data *data, t_coord *step, t_map *map_coord, int hit)
 {
-	int	hit;
-
-	hit = 0;
+	ft_get_delta(data);
+	ft_get_step(data, step, map_coord);
 	while (!hit)
 	{
 		if (data->side.x < data->side.y)
@@ -113,10 +113,9 @@ int ft_find_tex_x(t_data *data)
 	return ((int)tex_x);
 }
 
-void	draw_line(t_data *data, int x, int y)
+void	ft_draw_column(t_data *data, int x, int y)
 {
 	t_prm prm;
-
 
 	prm.line_height = (int)HEIGHT / data->perp_wall;
 	prm.start = (HEIGHT >> 1) - (prm.line_height >> 1);
@@ -144,14 +143,12 @@ void	ft_raycasting(t_data *data, int x, double camera_x)
 		data->ray_dir.y = data->p_dir.y + (data->plane.y * camera_x);
 		map_coord.x = (int)data->player.x;
 		map_coord.y = (int)data->player.y;
-		init_delta(data);
-		init_step(data, &step, &map_coord);
-		dda(data, &step, &map_coord);
+		ft_dda(data, &step, &map_coord, 0);
 		if (data->wall == EAST || data->wall == WEST)
 			data->perp_wall = (data->side.x - data->delta.x);
 		else
 			data->perp_wall = (data->side.y - data->delta.y);
-		draw_line(data, x, 0);
+		ft_draw_column(data, x, 0);
 		x++;
 	}
     mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
