@@ -19,7 +19,9 @@ void init_param(t_game *game, char *line, int fd) {
     game->config.west_texture = NULL;
     game->config.floor_color = -1;
     game->config.ceiling_color = -1;
+      printf("hhhhhh6\n");
     ft_scipe_empty_spaces_line(&line, fd);
+      printf("hhhhhh7\n");
     while (line) {
         if (is_texture_line(line)) {
             parse_texture_line(game, line);
@@ -28,8 +30,10 @@ void init_param(t_game *game, char *line, int fd) {
         } else {
             break;
         }
+          printf("hhhhhh8\n");
         ft_scipe_empty_spaces_line(&line, fd);
     }
+      printf("hhhhhh9\n");
     if (line)
         ft_scipe_empty_spaces_line(&line, fd);
     else
@@ -150,19 +154,19 @@ void print_map(char **map)
 void init_data(t_game *game, char *filename)
 {
 
-    char *line;
+    char *line=NULL;
     int fd;
-    printf("hhhhhh2");
+    printf("hhhhhh2\n");
     fd = open(filename, O_RDONLY);
-    printf("hhhhhh3");
+    printf("hhhhhh3\n");
     if (fd < 0)
-        ft_exit(EXIT_FAILURE);
-    printf("hhhhhh4");
+       ft_error("fd\n");
+    printf("hhhhhh4\n");
     line = get_next_line(fd);
     ft_scipe_empty_spaces_line(&line, fd);
-    printf("hhhhhh5");
+    printf("hhhhhh5 %s\n", line);
     init_param(game, line, fd);
-    printf("hhhhhh6");
+    printf("hhhhhh12\n");
     print_map(game->map);
 
 }

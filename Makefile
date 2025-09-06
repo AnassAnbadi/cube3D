@@ -10,7 +10,6 @@ SRCS = parseing/check.c \
        utils/ft_split.c \
        utils/get_next_line.c \
        utils/utils.c \
-       main.c
 
 OBJS = $(SRCS:.c=.o)
 HEADER = cub3D.h
@@ -24,7 +23,7 @@ LIBS = -lmlx -framework OpenGL -framework AppKit
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
+	$(CC) $(OBJS) main.c -o $(NAME)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@

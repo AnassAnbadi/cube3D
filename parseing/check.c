@@ -90,6 +90,6 @@ int is_space_only(char *line)
 }
 void ft_scipe_empty_spaces_line(char **line, int fd)
 {
-    while (*line && (ft_strlen(*line) == 0 || is_space_only(*line)))
+    while (*line &&  is_space_only(*line))
         *line = get_next_line(fd);
 }
