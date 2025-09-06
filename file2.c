@@ -48,22 +48,22 @@ static void	init_step(t_data *data, t_coord *step, t_map *map_coord)
 			*data->delta.y;
 	}
 }
-int ft_strlen(const char *s)
-{
-	int len = 0;
-	while (s[len] != '\0')
-		len++;
-	return len;
-}
-static int	is_out_of_bound(t_data *data, t_map *map_coord)
-{
-	if (map_coord->y < 0 || map_coord->y >= data->map_length)
-		return (1);
-	if (map_coord->x < 0
-		|| map_coord->x >= ft_strlen(data->map[map_coord->y]))
-		return (1);
-	return (0);
-}
+// int ft_strlen(const char *s)
+// {
+// 	int len = 0;
+// 	while (s[len] != '\0')
+// 		len++;
+// 	return len;
+// }
+// static int	is_out_of_bound(t_data *data, t_map *map_coord)
+// {
+// 	if (map_coord->y < 0 || map_coord->y >= data->map_length)
+// 		return (1);
+// 	if (map_coord->x < 0
+// 		|| map_coord->x >= ft_strlen(data->map[map_coord->y]))
+// 		return (1);
+// 	return (0);
+// }
 
 static void	dda(t_data *data, t_coord *step, t_map *map_coord)
 {
@@ -130,7 +130,7 @@ void	draw_line(t_data *data, int x, int y)
 		ft_put_px(data, x, y++, GREEN);
 }
 
-void	render(t_data *data, int x, double camera_x)
+void	ft_raycasting(t_data *data, int x, double camera_x)
 {
     t_map map_coord;
 	t_coord step;

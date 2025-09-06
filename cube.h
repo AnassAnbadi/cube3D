@@ -53,7 +53,7 @@
 
 /* Player speed */
 # define MOVE_SPEED 0.1
-# define ROT_SPEED 0.05
+# define ROT 0.05
 
 
 typedef enum e_wall
@@ -109,7 +109,7 @@ typedef struct	s_data {
 	t_texture	tex;
 	float 		perp_wall;	
 	char		**map;
-	int 		map_length;
+	// int 		map_length;
 	int 		key_fleche;
 	int 		key_board;
 	int			key_board2;
@@ -124,9 +124,15 @@ typedef struct	s_prm {
 	int tex_x;
 }				t_prm;
 
-void			render(t_data *data, int x, double camera_x);
-void	ft_put_texture(t_data *data, int x, int y, t_prm prm);
-void	ft_put_px(t_data *data, int x, int y, int color);
+void			ft_raycasting(t_data *data, int x, double camera_x);
+void			ft_put_texture(t_data *data, int x, int y, t_prm prm);
+void			ft_put_px(t_data *data, int x, int y, int color);
+void			keyboard_move(t_data *data);
+int 			close_window(void *param);
+int 			key_release(int keycode, t_data *data);
+int 			key_press(int keycode, t_data *data);
+int 			move_(t_data *data);
+int 			mouse_move(int x, int y, t_data *data);
 
 
 #endif
