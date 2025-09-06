@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <mlx.h>
+#include "mlx/mlx.h"
 #include <math.h>
 
 #define WIDTH 1920
@@ -17,21 +17,39 @@
 # define TITLE "cub3D"
 
 
-/* Exit keys */
-# define ESC 53
-# define CLOSE_BUTTON 17   // DestroyNotify (same as Linux)
+// /* Exit keys */
+// # define ESC 53
+// # define CLOSE_BUTTON 17   // DestroyNotify (same as Linux)
+
+// /* Movement keys (WASD) */
+// # define W 13
+// # define D 2
+// # define S 1
+// # define A 0
+
+// /* Arrow keys */
+// # define UP 126
+// # define DOWN 125
+// # define LEFT 123
+// # define RIGHT 124
+
+
+# define ESC 65307
+
+# define CLOSE_BUTTON 17   // DestroyNotify
 
 /* Movement keys (WASD) */
-# define W 13
-# define D 2
-# define S 1
-# define A 0
+# define W 119
+# define D 100
+# define S 115
+# define A 97
 
 /* Arrow keys */
-# define UP 126
-# define DOWN 125
-# define LEFT 123
-# define RIGHT 124
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
+
 
 /* Player speed */
 # define MOVE_SPEED 0.1
@@ -94,13 +112,20 @@ typedef struct	s_data {
 	int 		map_length;
 	int 		key_fleche;
 	int 		key_board;
+	int			key_board2;
 	
 
 }				t_data;
 
+typedef struct	s_prm {
+	int	line_height;
+	int	start;
+	int	end;
+	int tex_x;
+}				t_prm;
 
-void			render(t_data *data);
-void	ft_put_texture(t_data *data, int x, int y, int line_height, int start, int tex_x);
+void			render(t_data *data, int x, double camera_x);
+void	ft_put_texture(t_data *data, int x, int y, t_prm prm);
 void	ft_put_px(t_data *data, int x, int y, int color);
 
 

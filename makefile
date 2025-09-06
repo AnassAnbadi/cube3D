@@ -9,8 +9,11 @@ HEADER = cube.h
 
 all : $(NAME)
 
+# $(NAME): $(OBJS)
+# 	$(CC) $(OBJS)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
 $(NAME): $(OBJS)
-	$(CC) $(OBJS)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJS)  -Lmlx -lmlx_Linux -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o : %.c $(HEADER)
 	$(CC) -Imlx -c $< -o $@   

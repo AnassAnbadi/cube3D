@@ -35,39 +35,20 @@ int mouse_move(int x, int y, t_data *data)
         return (0);
     int delta_x = x - last_x;
     last_x = x;
-    double angle = delta_x * 0.005; // Sensitivity factor  
+    double angle = delta_x * 0.005;
     double old_dir_x = data->p_dir.x;
     data->p_dir.x = data->p_dir.x * cos(angle) - data->p_dir.y * sin(angle);
     data->p_dir.y = old_dir_x * sin(angle) + data->p_dir.y * cos(angle);
     double old_plane_x = data->plane.x;
     data->plane.x = data->plane.x * cos(angle) - data->plane.y * sin(angle);
     data->plane.y = old_plane_x * sin(angle) + data->plane.y * cos(angle);
-    // printf("Mouse X: %d, Delta X: %d, Angle: %f\n", x, delta_x, angle);
-    render(data);
+    render(data, 0, 0.0);
 
     return (0);
 }
 
 int move_( t_data *data)
 {
-    // if(data->key_fleche == 0 || data->key_board == 0)
-    //     return (0);
-
-    if (data->key_fleche == UP)
-    {
-        if (data->map[(int)(data->player.y)][(int)(data->player.x + data->p_dir.x * MOVE_SPEED)] == '0')
-            data->player.x += data->p_dir.x * MOVE_SPEED;
-        if (data->map[(int)(data->player.y + data->p_dir.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
-            data->player.y += data->p_dir.y * MOVE_SPEED;
-            // data->tex._x = (data->tex._x + 6) % data->tex.width;
-    }
-    if (data->key_fleche == DOWN)
-    {
-        if (data->map[(int)(data->player.y)][(int)(data->player.x - data->p_dir.x * MOVE_SPEED)] == '0')
-            data->player.x -= data->p_dir.x * MOVE_SPEED;
-        if (data->map[(int)(data->player.y - data->p_dir.y * MOVE_SPEED)][(int)(data->player.x)] == '0')
-            data->player.y -= data->p_dir.y * MOVE_SPEED;
-    }
     if (data->key_fleche == LEFT)
     {
         double old_dir_x = data->p_dir.x;
@@ -86,19 +67,15 @@ int move_( t_data *data)
         data->plane.x = data->plane.x * cos(ROT_SPEED) - data->plane.y * sin(ROT_SPEED);
         data->plane.y = old_plane_x * sin(ROT_SPEED) + data->plane.y * cos(ROT_SPEED);
     }
-    // printf("Player p_dir: (%f, %f)\n", data->p_dir.x, data->p_dir.y);
-    // printf("Player plane: (%f, %f)\n", data->plane.x, data->plane.y);
-    // printf("Player position: (%f, %f)\n", data->player.x, data->player.y);
-    // mlx_clear_window(data->img.mlx, data->img.win);
 
-    if (data->key_board == W)
+    if (data->key_board2 == W)
     {
         if (data->map[(int)(data->player.y)][(int)(data->player.x + data->p_dir.x * MOVE_SPEED*4)] == '0')
             data->player.x += data->p_dir.x * MOVE_SPEED;
         if (data->map[(int)(data->player.y + data->p_dir.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
             data->player.y += data->p_dir.y * MOVE_SPEED;
     }
-    if (data->key_board == S)
+    if (data->key_board2 == S)
     {
         if (data->map[(int)(data->player.y)][(int)(data->player.x - data->p_dir.x * MOVE_SPEED*4)] == '0')
             data->player.x -= data->p_dir.x * MOVE_SPEED;
@@ -119,10 +96,8 @@ int move_( t_data *data)
         if (data->map[(int)(data->player.y - data->plane.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
             data->player.y -= data->plane.y * MOVE_SPEED;
     }
-    if(data->key_fleche != 0 || data->key_board != -1){
-        // printf("Player position: (%d, %d)\n", data->key_board, data->key_fleche);d
-        render(data);
-    }
+    if(data->key_fleche != 0 || data->key_board != -1 || data->key_board2 != -1)
+        render(data, 0, 0.0);
     return (0);
 }
 
@@ -130,20 +105,23 @@ int key_press(int keycode, t_data *data)
 {
     if (keycode == ESC ) // Escape key
         exit(0);//////////////////////////////////////////////////
-    if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
+    if (keycode == LEFT || keycode == RIGHT)
         data->key_fleche = keycode;
-    if (keycode == W || keycode == A || keycode == S || keycode == D)
+    if (keycode == A || keycode == D)
         data->key_board = keycode;
+    if (keycode == W || keycode == S)
+        data->key_board2 = keycode;
     return (0);
 }
 
 int key_release(int keycode, t_data *data)
 {
-    if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
+    if (keycode == LEFT || keycode == RIGHT)
         data->key_fleche = 0;
-    if (keycode == W || keycode == A || keycode == S || keycode == D)
+    if (keycode == A || keycode == D)
         data->key_board = -1;
-        
+    if (keycode == W || keycode == S)
+        data->key_board2 = -1;
     return (0);
 }
 
@@ -179,6 +157,7 @@ int main(int argc, char **argv)
     data.p_dir = (t_coord){1, 0}; // Player direction vector
     data.plane = (t_coord){0, 0.66};
     data.key_board = -1;
+    data.key_board2 = -1;
     char *map[] = {
         "11111111111111111111",
         "10000000000000000001",
@@ -255,7 +234,7 @@ int main(int argc, char **argv)
     // mlx_hook(data.win, 3, 1L<<1, key_release, &data);
 
     // mlx_key_hook(data.img.win, key_hook, &data);
-    render(&data);
+    render(&data, 0, 0.0);
     mlx_hook(data.img.win, 2, 1L<<0, key_press, &data);     // Key press
     mlx_hook(data.img.win, 3, 1L<<1, key_release, &data);   // Key release
     mlx_loop_hook(data.img.mlx, move_, &data);             

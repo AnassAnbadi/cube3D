@@ -90,7 +90,7 @@ static void	dda(t_data *data, t_coord *step, t_map *map_coord)
 			else
 				data->wall = NORTH;
 		}
-		if ( data->map[map_coord->y][map_coord->x] == '1') //is_out_of_bound(data) || 
+		if (data->map[map_coord->y][map_coord->x] == '1') //is_out_of_bound(data) || 
 			hit = 1;
 	}
 }
@@ -115,32 +115,28 @@ int ft_find_tex_x(t_data *data)
 
 void	draw_line(t_data *data, int x, int y)
 {
-	int	line_height;
-	int	start;
-	int	end;
-	int tex_x;
+	t_prm prm;
 
-	line_height = (int)HEIGHT / data->perp_wall;
-	start = (HEIGHT >> 1) - (line_height >> 1);
-	end = (line_height >> 1) + (HEIGHT >> 1);
 
-	tex_x = ft_find_tex_x(data);
-	while (y < start)
+	prm.line_height = (int)HEIGHT / data->perp_wall;
+	prm.start = (HEIGHT >> 1) - (prm.line_height >> 1);
+	prm.end = (prm.line_height >> 1) + (HEIGHT >> 1);
+	prm.tex_x = ft_find_tex_x(data);
+	while (y < prm.start)
 		ft_put_px(data, x, y++, BLUE);
-	while (y <= end)
-		ft_put_texture(data, x, y++, line_height, start, tex_x);// (int)tex_x);
+	while (y <= prm.end)
+		ft_put_texture(data, x, y++, prm); // line_height, start, tex_x
 	while (y < HEIGHT)
 		ft_put_px(data, x, y++, GREEN);
 }
 
-void	render(t_data *data)
+void	render(t_data *data, int x, double camera_x)
 {
-	int		x;
-	double	camera_x;
-    t_map map_coord = {0};
-	t_coord step = {0};
+    t_map map_coord;
+	t_coord step;
 
-	x = 0;
+	step = (t_coord){0};
+	map_coord = (t_map){0};
 	while (x < WIDTH)
 	{
 		camera_x = 2 * x / (double)WIDTH - 1;
@@ -148,7 +144,6 @@ void	render(t_data *data)
 		data->ray_dir.y = data->p_dir.y + (data->plane.y * camera_x);
 		map_coord.x = (int)data->player.x;
 		map_coord.y = (int)data->player.y;
-		// map_coord =(t_coord){(int)(data->player.x), (int)data->player.y};
 		init_delta(data);
 		init_step(data, &step, &map_coord);
 		dda(data, &step, &map_coord);
