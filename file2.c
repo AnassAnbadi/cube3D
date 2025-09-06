@@ -105,11 +105,11 @@ int ft_find_tex_x(t_data *data)
 	else
 		wall_x = data->player.x + data->perp_wall * data->ray_dir.x;
 	wall_x -= floor(wall_x);
-	tex_x = (int)(wall_x * (double)data->tex.width);
+	tex_x = (int)(wall_x * (double)data->tex[data->wall].width);
 	if ((data->wall == EAST || data->wall == WEST) && data->ray_dir.x > 0)
-		tex_x = data->tex.width - tex_x - 1;
+		tex_x = data->tex[data->wall].width - tex_x - 1;
 	if ((data->wall == NORTH || data->wall == SOUTH) && data->ray_dir.y < 0)
-		tex_x = data->tex.width - tex_x - 1;
+		tex_x = data->tex[data->wall].width - tex_x - 1;
 	return ((int)tex_x);
 }
 

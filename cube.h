@@ -106,7 +106,7 @@ typedef struct	s_data {
 	t_coord		delta;
 	t_coord		side;
 	t_wall		wall;
-	t_texture	tex;
+	t_texture	tex[4];
 	float 		perp_wall;	
 	char		**map;
 	// int 		map_length;

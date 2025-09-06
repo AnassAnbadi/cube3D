@@ -68,10 +68,10 @@ void ft_put_texture(t_data *data, int x, int y, t_prm prm)
 
 	if (y >= HEIGHT)
 		return;
-	tex_height = data->tex.height;
+	tex_height = data->tex[data->wall].height;
 	tex_pos = (double)(y - prm.start) / prm.line_height;	
 	tex_y = (int)(tex_pos * tex_height);
 	if (tex_y >= tex_height)
 		tex_y = tex_height - 1;
-	ft_put_px(data, x, y, get_tex_color(&data->tex, prm.tex_x, tex_y));
+	ft_put_px(data, x, y, get_tex_color(&data->tex[data->wall], prm.tex_x, tex_y));
 }

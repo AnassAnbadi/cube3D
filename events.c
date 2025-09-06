@@ -113,6 +113,6 @@ int key_release(int keycode, t_data *data)
 int close_window(void *param)
 {
     (void)param;
-    exit(0);
+    exit(0);////////////////////////////////////
     return (0);
 }

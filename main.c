@@ -143,17 +143,10 @@ int main(int argc, char **argv)
     data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
     data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 
-    // data.tex.img = mlx_xpm_file_to_image(data.img.mlx, "./texture.xpm", &data.tex.width, &data.tex.height);
-    // if (!data.tex.img)
-    // {
-    //     printf("Error: failed to load tex2 \n");
-    //     exit(1);
-    // }
-    // data.tex.addr = mlx_get_data_addr(data.tex.img, &data.tex.bits_per_pixel,
-    //                              &data.tex.line_length, &data.tex.endian);
-
-    data.tex = open_texture(data.img.mlx, "./texture.xpm");
-
+    data.tex[NORTH] = open_texture(data.img.mlx, "./texture.xpm");
+    data.tex[SOUTH] = open_texture(data.img.mlx, "./texture.xpm");
+    data.tex[EAST] = open_texture(data.img.mlx, "./tex2.xpm");
+    data.tex[WEST] = open_texture(data.img.mlx, "./tex2.xpm");
                     
     data.player = (t_coord){1.5, 1.5}; // Player position
     data.p_dir = (t_coord){1, 0}; // Player direction vector
