@@ -12,18 +12,19 @@ void	ft_put_px(t_data *data, int x, int y, int color)
 
 static void	ft_get_delta(t_data *data)
 {
-	if (data->ray_dir.y == 0)
-		data->delta.y = 1e30;
-	else
-		data->delta.y = fabs(1 / data->ray_dir.y);
 	if (data->ray_dir.x == 0)
 		data->delta.x = 1e30;
 	else
 		data->delta.x = fabs(1 / data->ray_dir.x);
+	if (data->ray_dir.y == 0)
+		data->delta.y = 1e30;
+	else
+		data->delta.y = fabs(1 / data->ray_dir.y);
 }
 
 static void	ft_get_step(t_data *data, t_coord *step, t_map *map_coord)
 {
+	ft_get_delta(data);
 	if (data->ray_dir.x < 0)
 	{
 		step->x = -1;
@@ -66,32 +67,32 @@ static void	ft_get_step(t_data *data, t_coord *step, t_map *map_coord)
 // 	return (0);
 // }
 
-static void	ft_dda(t_data *data, t_coord *step, t_map *map_coord, int hit)
+static void	ft_dda(t_data *data, t_coord *step, t_map *map_coord)
 {
-	ft_get_delta(data);
-	ft_get_step(data, step, map_coord);
-	while (!hit)
+	while (1)
 	{
 		if (data->side.x < data->side.y)
 		{
-			data->side.x += data->delta.x;
 			map_coord->x += step->x;
 			if (step->x > 0)
 				data->wall = EAST;
 			else
 				data->wall = WEST;
+			if (data->map[map_coord->y][map_coord->x] == '1') //is_out_of_bound(data) || 
+				break;
+			data->side.x += data->delta.x;
 		}
 		else
 		{
-			data->side.y += data->delta.y;
 			map_coord->y += step->y;
 			if (step->y > 0)
 				data->wall = SOUTH;
 			else
 				data->wall = NORTH;
+			if (data->map[map_coord->y][map_coord->x] == '1') //is_out_of_bound(data) || 
+				break;
+				data->side.y += data->delta.y;
 		}
-		if (data->map[map_coord->y][map_coord->x] == '1') //is_out_of_bound(data) || 
-			hit = 1;
 	}
 }
 
@@ -121,12 +122,24 @@ void	ft_draw_column(t_data *data, int x, int y)
 	prm.start = (HEIGHT >> 1) - (prm.line_height >> 1);
 	prm.end = (prm.line_height >> 1) + (HEIGHT >> 1);
 	prm.tex_x = ft_find_tex_x(data);
-	while (y < prm.start)
-		ft_put_px(data, x, y++, BLUE);////////////////////////////////
-	while (y <= prm.end)
-		ft_put_texture(data, x, y++, prm); // line_height, start, tex_x
+	// while (y < prm.start)
+	// 	ft_put_px(data, x, y++, BLUE);////////////////////////////////
+	// while (y <= prm.end)
+	// 	ft_put_texture(data, x, y++, prm); // line_height, start, tex_x
+	// while (y < HEIGHT)
+	// 	ft_put_px(data, x, y++, GREEN);//////// shouls take it from parsing
+
 	while (y < HEIGHT)
-		ft_put_px(data, x, y++, GREEN);//////// shouls take it from parsing
+	{
+		if (y < prm.start)
+			ft_put_px(data, x, y, BLUE);////////////////////////////////
+		else if(y <= prm.end)
+			ft_put_texture(data, x, y, prm); // line_height, start, tex_x
+		else
+			ft_put_px(data, x, y, GREEN);//////// shouls take it from parsing
+		y++;
+	}
+
 }
 
 void	ft_raycasting(t_data *data, int x, double camera_x)
@@ -143,11 +156,12 @@ void	ft_raycasting(t_data *data, int x, double camera_x)
 		data->ray_dir.y = data->p_dir.y + (data->plane.y * camera_x);
 		map_coord.x = (int)data->player.x;
 		map_coord.y = (int)data->player.y;
-		ft_dda(data, &step, &map_coord, 0);
+		ft_get_step(data, &step, &map_coord);
+		ft_dda(data, &step, &map_coord);
 		if (data->wall == EAST || data->wall == WEST)
-			data->perp_wall = (data->side.x - data->delta.x);
+			data->perp_wall = data->side.x;
 		else
-			data->perp_wall = (data->side.y - data->delta.y);
+			data->perp_wall = data->side.y;
 		ft_draw_column(data, x, 0);
 		x++;
 	}
