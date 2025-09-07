@@ -62,7 +62,7 @@ static void	ft_get_step(t_data *data, t_coord *step, t_map *map_coord)
 // 		return (1);
 // 	if (map_coord->x < 0
 // 		|| map_coord->x >= ft_strlen(data->map[map_coord->y]))
-// 		return (1);
+// 		return (1); 
 // 	return (0);
 // }
 
@@ -106,27 +106,27 @@ int ft_find_tex_x(t_data *data)
 		wall_x = data->player.x + data->perp_wall * data->ray_dir.x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * (double)data->tex[data->wall].width);
-	if ((data->wall == EAST || data->wall == WEST) && data->ray_dir.x > 0)
-		tex_x = data->tex[data->wall].width - tex_x - 1;
-	if ((data->wall == NORTH || data->wall == SOUTH) && data->ray_dir.y < 0)
-		tex_x = data->tex[data->wall].width - tex_x - 1;
+	// if ((data->wall == EAST || data->wall == WEST) && data->ray_dir.x > 0)
+	// 	tex_x = data->tex[data->wall].width - tex_x - 1;
+	// if ((data->wall == NORTH || data->wall == SOUTH) && data->ray_dir.y < 0)
+	// 	tex_x = data->tex[data->wall].width - tex_x - 1;
 	return ((int)tex_x);
 }
 
 void	ft_draw_column(t_data *data, int x, int y)
 {
-	t_prm prm;
+	t_prm	prm;
 
 	prm.line_height = (int)HEIGHT / data->perp_wall;
 	prm.start = (HEIGHT >> 1) - (prm.line_height >> 1);
 	prm.end = (prm.line_height >> 1) + (HEIGHT >> 1);
 	prm.tex_x = ft_find_tex_x(data);
 	while (y < prm.start)
-		ft_put_px(data, x, y++, BLUE);
+		ft_put_px(data, x, y++, BLUE);////////////////////////////////
 	while (y <= prm.end)
 		ft_put_texture(data, x, y++, prm); // line_height, start, tex_x
 	while (y < HEIGHT)
-		ft_put_px(data, x, y++, GREEN);
+		ft_put_px(data, x, y++, GREEN);//////// shouls take it from parsing
 }
 
 void	ft_raycasting(t_data *data, int x, double camera_x)
