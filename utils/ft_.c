@@ -49,12 +49,12 @@ void ft_free(void)
 
 void ft_error(const char *msg)
 {
-    perror("Error\n");
-    perror(msg);
+    write(2, "Error\n", ft_strlen("Error\n"));
+    write(2, msg, ft_strlen(msg));
     ft_exit(EXIT_FAILURE);
 }
 void ft_exit(int code)
 {
-   ft_free();
+//    ft_free();
     exit(code);
 }

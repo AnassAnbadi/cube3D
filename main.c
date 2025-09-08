@@ -27,7 +27,6 @@ int main(int argc, char **argv)
     //     return EXIT_FAILURE;
     // }
     // init_mlx(&game);
-    write(1, "error1\n",8);
 // printf("hhhhhh1 %s",argv[1]);
     init_data(&game, argv[1]);
     // check_file(&game);

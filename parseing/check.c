@@ -14,7 +14,10 @@ char *ft_get_value(char *line)
     while (*line && (*line == ' '))
         line++;
     if (*line == '\0')
+    {
+        printf("Error\nInvalid texture path\n");
         ft_exit(EXIT_FAILURE);
+    }
     end  = line + ft_strlen(line) - 1;
     while (end > line && (*end == ' '))
         end--;
@@ -46,8 +49,6 @@ void parse_texture_line(t_game *game, char *line)
         path = ft_get_value(line + 3);
         game->config.west_texture = path;
     }
-    else
-        ft_exit(EXIT_FAILURE);
 }
 int is_color_line(char *line)
 {
@@ -77,19 +78,31 @@ void parse_color_line(t_game *game, char *line)
     else
         ft_error("Invalid color line\n");
 }
+int ft_white_space(char c)
+{
+    if (c == ' ' || c == '\t'  || c == '\v' || c == '\f' || c == '\r')
+        return (1);
+    return (0);
+}
+
 int is_space_only(char *line)
 {
     int i = 0;
-    while (line[i])
+    while (line[i]!= '\0' && line[i] != '\n')
     {
-        if (line[i] != ' ' && line[i] != '\n')
+        if (ft_white_space(line[i]) == 0)
             return (0);
         i++;
     }
-    return (1);
+    if (i == (int)ft_strlen(line) - 1 && line[0] != '\n')
+        return (1);
+    return (0);
 }
-void ft_scipe_empty_spaces_line(char **line, int fd)
+char *ft_scipe_empty_spaces_line(char *line, int fd)
 {
-    while (*line &&  is_space_only(*line))
-        *line = get_next_line(fd);
+    while (line && is_space_only(line))
+    {
+        line = get_next_line(fd);
+    }
+    return line;
 }
