@@ -23,41 +23,6 @@ int mouse_move(int x, int y, t_data *data)
     ft_raycasting(data, 0, 0.0);
     return (0);
 }
-// void keyboard_move(t_data *data)
-// {
-//     if (data->key_board2 == W)
-//     {
-//         if (data->map[(int)(data->player.y)][(int)(data->player.x + data->p_dir.x * MOVE_SPEED*4)] == '0')
-//             data->player.x += data->p_dir.x * MOVE_SPEED;
-//         if (data->map[(int)(data->player.y + data->p_dir.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
-//             data->player.y += data->p_dir.y * MOVE_SPEED;
-//     }
-//     if (data->key_board2 == S)
-//     {
-//         if (data->map[(int)(data->player.y)][(int)(data->player.x - data->p_dir.x * MOVE_SPEED*4)] == '0')
-//             data->player.x -= data->p_dir.x * MOVE_SPEED;
-//         if (data->map[(int)(data->player.y - data->p_dir.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
-//             data->player.y -= data->p_dir.y * MOVE_SPEED;
-//     }
-//     if (data->key_board == D)
-//     {
-//         if (data->map[(int)(data->player.y)][(int)(data->player.x + data->plane.x * MOVE_SPEED * 4)] == '0')
-//             data->player.x += data->plane.x * MOVE_SPEED;
-//         if (data->map[(int)(data->player.y + data->plane.y * MOVE_SPEED *4)][(int)(data->player.x)] == '0')
-//             data->player.y += data->plane.y * MOVE_SPEED;
-//     }
-//     if (data->key_board == A)
-//     {
-//         if (data->map[(int)(data->player.y)][(int)(data->player.x - data->plane.x * MOVE_SPEED*4)] == '0')
-//             data->player.x -= data->plane.x * MOVE_SPEED;
-//         if (data->map[(int)(data->player.y - data->plane.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
-//             data->player.y -= data->plane.y * MOVE_SPEED;
-//     }
-// }
-
-
-
-
 
 int move_(t_data *data)
 {
@@ -81,7 +46,7 @@ int move_(t_data *data)
         data->plane.y = old_plane_x * sin(ROT) + data->plane.y * cos(ROT);
     }
     keyboard_move(data);
-    if(data->key_fleche != 0 || data->key_board != -1 || data->key_board2 != -1)
+    if(data->key_fleche || data->key_board != -1 || data->key_board2 != -1)
         ft_raycasting(data, 0, 0.0);
     return (0);
 }

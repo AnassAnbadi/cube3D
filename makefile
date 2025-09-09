@@ -2,7 +2,7 @@ NAME = cube
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
-SRCS = main.c file2.c texture_getter.c keyboard_move.c events.c
+SRCS = main.c ft_raycasting.c ft_put_texture.c keyboard_move.c events.c ft_dda.c
 OBJS = $(SRCS:.c=.o)
 HEADER = cube.h
 
@@ -18,7 +18,7 @@ $(NAME): $(OBJS)
 %.o : %.c $(HEADER)
 	$(CC) -Imlx -c $< -o $@   
 
-# $(CFLAGS) 
+# $(CFLAGS) //////////////////////////////////////////////
 
 clean :
 	$(RM) $(OBJS)

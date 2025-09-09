@@ -133,6 +133,8 @@ int 			key_release(int keycode, t_data *data);
 int 			key_press(int keycode, t_data *data);
 int 			move_(t_data *data);
 int 			mouse_move(int x, int y, t_data *data);
+void	ft_dda(t_data *data, t_coord step, t_map *map_coord);
+void	ft_get_step(t_data *data, t_coord *step, t_map map_coord);
 
 
 #endif
