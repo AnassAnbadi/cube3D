@@ -77,7 +77,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	temp_buffer =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                malloc((size_t)BUFFER_SIZE + 1);
+	temp_buffer = malloc((size_t)BUFFER_SIZE + 1);
 	if (!temp_buffer)
 		return (NULL);
 	stored_data = read_from_file(fd, temp_buffer, stored_data);

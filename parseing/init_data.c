@@ -1,16 +1,6 @@
 #include "../cub3D.h"
 
 
-void scipe_spaces_line(char **line) {
-    char *start = *line;
-    while (*start && (*start == ' '))
-        start++;
-    if (start != *line) {
-        free(*line);
-        *line = ft_strdup(start);
-    }
-}
-
 void init_param(t_game *game, char *line, int fd) {
     // static int i;
     game->config.north_texture = NULL;
@@ -21,22 +11,23 @@ void init_param(t_game *game, char *line, int fd) {
     game->config.ceiling_color = -1;
     line = ft_scipe_empty_spaces_line(line, fd);
     while (line) {
-        if (is_texture_line(line)) {
+        if (is_texture_line(ft_scipe_spaces(line))) {
             printf("how many time\n");
-            parse_texture_line(game, line);
-        } else if (is_color_line(line)) {
-            parse_color_line(game, line);
+            parse_texture_line(game, ft_scipe_spaces(line));
+        } else if (is_color_line(ft_scipe_spaces(line))) {
+            parse_color_line(game, ft_scipe_spaces(line));
+            printf("color line\n");
         } else {
             break;
-            printf("Invalid line format\n");
         }
         line = get_next_line(fd);
         line = ft_scipe_empty_spaces_line(line, fd);
     }
-    if (line)
-        line = ft_scipe_empty_spaces_line(line, fd);
-    else
+    if (!line)
         ft_error("No map data found\n");
+    line = ft_scipe_empty_spaces_line(line, fd);
+    if(ft_sum(get_value(), 6) != 6)
+        ft_error("Missing or duplicate configuration parameters\n");
     init_mock_map(game, line, fd);
     
 }
@@ -108,11 +99,11 @@ void check_map(char **map) {
             if (map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W') {
                 if (i == 0 || i == len - 1 || j == 0 || j == (int)ft_strlen(map[i]) - 1) {
                     printf("i=%d j=%d len=%d strlen=%lu\n", i, j, len, ft_strlen(map[i]));
-                    ft_error("Map is not closed\n");
+                    ft_error("Map is not closed0\n");
                 }
                 if (map[i - 1][j] == ' ' || map[i + 1][j] == ' ' ||
                     map[i][j - 1] == ' ' || map[i][j + 1] == ' ') {
-                    ft_error("Map is not closed\n");
+                    ft_error("Map is not closed1\n");
                 }
             }
             j++;
@@ -126,7 +117,7 @@ void init_mock_map(t_game *game, char *line, int fd) {
     head = NULL;
     while (line) {
         if(is_space_only(line))
-            ft_error("Map is not closed1\n");
+            ft_error("Map is not closed2\n");
         current = ft_malloc(sizeof(t_mock_map));
         current->line = line;
         current->line[ft_strlen(current->line) - 1] = '\0';

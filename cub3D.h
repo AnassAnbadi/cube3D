@@ -15,7 +15,7 @@
 
 typedef struct s_garbage_collector
 {
-    void *ptr;
+    char *ptr;
     struct s_garbage_collector *next;
 } t_gc;
 
@@ -88,6 +88,9 @@ void    init_data_map(t_mock_map *head, t_game *game);
 void    check_map(char **map);
 void    init_data(t_game *game, char *filename);
 int is_space_only(char *line);
+int ft_sum(int *arr, int size);
+int *get_value(void);
+char *ft_scipe_spaces(char *line);
 
 
 #endif

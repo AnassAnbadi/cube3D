@@ -26,28 +26,33 @@ char *ft_get_value(char *line)
     return (ft_substr(line, 0, end - line));
 }
 
+int *get_value(void)
+{
+    static int values[6];
+    return values;
+}
+
 void parse_texture_line(t_game *game, char *line)
 {
-    char *path;
     if (ft_strncmp(line, "NO ", 3) == 0)
     {
-        path = ft_get_value(line + 3);
-        game->config.north_texture = path;
+        get_value()[0]++;
+        game->config.north_texture = ft_get_value(line + 3);
     }
     else if (ft_strncmp(line, "SO ", 3) == 0)
     {
-        path = ft_get_value(line + 3);
-        game->config.south_texture = path;
+        get_value()[1]++;
+        game->config.south_texture = ft_get_value(line + 3);
     }
     else if (ft_strncmp(line, "EA ", 3) == 0)
     {
-        path = ft_get_value(line + 3);
-        game->config.east_texture = path;
+        get_value()[2]++;
+        game->config.east_texture = ft_get_value(line + 3);
     }
     else if (ft_strncmp(line, "WE ", 3) == 0)
     {
-        path = ft_get_value(line + 3);
-        game->config.west_texture = path;
+        get_value()[3]++;
+        game->config.west_texture = ft_get_value(line + 3);
     }
 }
 int is_color_line(char *line)
@@ -59,9 +64,13 @@ void parse_color_line(t_game *game, char *line)
 {
     char **colors;
     int r, g, b;
-    // int i = 0;
+
     if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
-    {        
+    {
+        if (ft_strncmp(line, "F ", 2) == 0)
+            get_value()[4]++;
+        else
+            get_value()[5]++;
         colors = ft_split(line + 2, ',');
         if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3] != NULL)
             ft_error("Invalid color format\n");
@@ -104,5 +113,11 @@ char *ft_scipe_empty_spaces_line(char *line, int fd)
     {
         line = get_next_line(fd);
     }
+    return line;
+}
+char *ft_scipe_spaces(char *line)
+{
+    while (*line && ft_white_space(*line))
+        line++;
     return line;
 }

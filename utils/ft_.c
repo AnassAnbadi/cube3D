@@ -9,7 +9,7 @@ t_gc **ft_gc(void)
 
 void *ft_malloc(size_t size)
 {
-    void *ptr;
+    char *ptr;
     t_gc *new_node;
     t_gc **gc_list;
 
@@ -40,6 +40,7 @@ void ft_free(void)
     while (current)
     {
         next = current->next;
+        printf("Freeing: %s\n", (char *)current->ptr);
         free(current->ptr);
         free(current);
         current = next;
@@ -55,6 +56,6 @@ void ft_error(const char *msg)
 }
 void ft_exit(int code)
 {
-//    ft_free();
+    ft_free();
     exit(code);
 }
