@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_raycasting.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/11 18:07:10 by mbenchah          #+#    #+#             */
+/*   Updated: 2025/09/11 18:07:11 by mbenchah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
+   // each map cell = 10x10 pixels
 
 void	ft_put_px(t_data *data, int x, int y, int color)
 {
@@ -21,6 +34,7 @@ int ft_find_tex_x(t_data *data)
 	return ((int)(wall_x * (double)data->tex[data->wall].width));
 }
 
+
 void	ft_draw_column(t_data *data, int x, int y)
 {
 	t_prm	prm;
@@ -39,7 +53,6 @@ void	ft_draw_column(t_data *data, int x, int y)
 			ft_put_px(data, x, y, GREEN);//////// shouls take it from parsing
 		y++;
 	}
-
 }
 
 void	ft_raycasting(t_data *data, int x, double camera_x)
@@ -64,4 +77,7 @@ void	ft_raycasting(t_data *data, int x, double camera_x)
 		x++;
 	}
     mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
+	draw_minimap(data);
+	draw_player_on_minimap(data);
+	draw_player_dir(data);
 }

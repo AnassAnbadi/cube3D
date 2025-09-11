@@ -2,7 +2,7 @@ NAME = cube
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
-SRCS = main.c ft_raycasting.c ft_put_texture.c keyboard_move.c events.c ft_dda.c
+SRCS = main.c ft_raycasting.c ft_put_texture.c keyboard_move.c events.c ft_dda.c mini_map.c
 OBJS = $(SRCS:.c=.o)
 HEADER = cube.h
 

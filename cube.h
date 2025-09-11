@@ -65,8 +65,8 @@ typedef enum e_wall
 }				t_wall;
 
 typedef struct	s_coord {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }				t_coord;
 
 typedef struct	s_map {
@@ -133,8 +133,14 @@ int 			key_release(int keycode, t_data *data);
 int 			key_press(int keycode, t_data *data);
 int 			move_(t_data *data);
 int 			mouse_move(int x, int y, t_data *data);
-void	ft_dda(t_data *data, t_coord step, t_map *map_coord);
-void	ft_get_step(t_data *data, t_coord *step, t_map map_coord);
+void			ft_dda(t_data *data, t_coord step, t_map *map_coord);
+void			ft_get_step(t_data *data, t_coord *step, t_map map_coord);
+
+#define TILE_SIZE 10
+
+void 			draw_minimap(t_data *data);
+void 			draw_player_on_minimap(t_data *data);
+void 			draw_player_dir(t_data *data);
 
 
 #endif

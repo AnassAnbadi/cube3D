@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/11 18:07:19 by mbenchah          #+#    #+#             */
+/*   Updated: 2025/09/11 18:07:27 by mbenchah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
 
@@ -27,7 +39,7 @@
 // void keyboard_move(t_data *data)
 // {
 //     if (data->key_board2 == W)
-//     {
+//     {	floa	floatt
 //         if (data->map[(int)(data->player.y)][(int)(data->player.x + data->p_dir.x * MOVE_SPEED*4)] == '0')
 //             data->player.x += data->p_dir.x * MOVE_SPEED;
 //         if (data->map[(int)(data->player.y + data->p_dir.y * MOVE_SPEED*4)][(int)(data->player.x)] == '0')
