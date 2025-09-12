@@ -40,7 +40,6 @@ void ft_free(void)
     while (current)
     {
         next = current->next;
-        printf("Freeing: %s\n", (char *)current->ptr);
         free(current->ptr);
         free(current);
         current = next;

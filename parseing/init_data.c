@@ -1,14 +1,8 @@
 #include "../cub3D.h"
 
 
-void init_param(t_game *game, char *line, int fd) {
-    // static int i;
-    game->config.north_texture = NULL;
-    game->config.south_texture = NULL;
-    game->config.east_texture = NULL;
-    game->config.west_texture = NULL;
-    game->config.floor_color = -1;
-    game->config.ceiling_color = -1;
+void init_param(t_game *game, char *line, int fd)
+{
     line = ft_scipe_empty_spaces_line(line, fd);
     while (line) {
         if (is_texture_line(ft_scipe_spaces(line))) {
@@ -110,6 +104,17 @@ void check_map(char **map) {
         }
     }
 }
+
+int check_lines_empty(char *line, int fd)
+{
+    while (line )
+    {
+        if (is_space_only(line))
+            return (0);
+        line = get_next_line(fd);
+    }
+    return (1);
+}
 void init_mock_map(t_game *game, char *line, int fd) {
     t_mock_map *head;
     t_mock_map *current;
@@ -117,7 +122,12 @@ void init_mock_map(t_game *game, char *line, int fd) {
     head = NULL;
     while (line) {
         if(is_space_only(line))
-            ft_error("Map is not closed2\n");
+        {
+            printf("{%s}\n", line);
+            if (!check_lines_empty(line, fd))
+                ft_error("Map is not closed2\n");
+            break;
+        }
         current = ft_malloc(sizeof(t_mock_map));
         current->line = line;
         current->line[ft_strlen(current->line) - 1] = '\0';
@@ -159,5 +169,7 @@ void init_data(t_game *game, char *filename)
     line = ft_scipe_empty_spaces_line(line, fd);
     init_param(game, line, fd);
     print_map(game->map);
+    close(fd);
+    ft_exit(EXIT_SUCCESS);
 
 }
