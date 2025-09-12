@@ -52,7 +52,7 @@
 
 
 /* Player speed */
-# define MOVE_SPEED 0.01
+# define MOVE_SPEED 0.1
 # define ROT 0.05
 
 
