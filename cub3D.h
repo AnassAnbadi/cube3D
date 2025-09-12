@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <unistd.h>
-// #include <mlx.h>
+#include "mlx/mlx.h"
 
 #define WIDTH 1920
 #define HEIGHT 1080
@@ -181,5 +181,19 @@ int ft_sum(int *arr, int size);
 int *get_value(void);
 char *ft_scipe_spaces(char *line);
 
+
+
+
+void			ft_raycasting(t_data *data, int x, double camera_x);
+void			ft_put_texture(t_data *data, int x, int y, t_prm prm);
+void			ft_put_px(t_data *data, int x, int y, int color);
+void			keyboard_move(t_data *data);
+int 			close_window(void *param);
+int 			key_release(int keycode, t_data *data);
+int 			key_press(int keycode, t_data *data);
+int 			move_(t_data *data);
+int 			mouse_move(int x, int y, t_data *data);
+void			ft_dda(t_data *data, t_coord step, t_map *map_coord);
+void			ft_get_step(t_data *data, t_coord *step, t_map map_coord);
 
 #endif
