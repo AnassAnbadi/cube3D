@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:19 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/11 18:07:27 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/12 21:04:24 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,10 +155,10 @@ int main(int argc, char **argv)
     data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
     data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 
-    data.tex[NORTH] = open_texture(data.img.mlx, "./nass_elghiwane.xpm");
-    data.tex[SOUTH] = open_texture(data.img.mlx, "./nass_elghiwane.xpm");
-    data.tex[EAST] = open_texture(data.img.mlx, "./pink_floyd.xpm");
-    data.tex[WEST] = open_texture(data.img.mlx, "./james.xpm");
+    data.tex[NORTH] = open_texture(data.img.mlx, "./texture/nass_elghiwane.xpm");
+    data.tex[SOUTH] = open_texture(data.img.mlx, "./texture/nass_elghiwane.xpm");
+    data.tex[EAST] = open_texture(data.img.mlx, "./texture/pink_floyd.xpm");
+    data.tex[WEST] = open_texture(data.img.mlx, "./texture/james.xpm");
                     
     data.player = (t_coord){1.5, 1.5}; // Player position
     data.p_dir = (t_coord){1, 0}; // Player direction vector

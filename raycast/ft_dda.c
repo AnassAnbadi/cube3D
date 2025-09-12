@@ -6,11 +6,11 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:01 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/11 18:07:02 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/12 21:03:13 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../cube.h"
 
 static void	ft_get_delta(t_data *data)
 {

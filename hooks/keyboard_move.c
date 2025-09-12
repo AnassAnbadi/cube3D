@@ -6,11 +6,11 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:15 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/11 18:07:16 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/12 21:03:05 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../cube.h"
 
 
 static void move_forward(t_data *data)

@@ -6,8 +6,8 @@
 #include "mlx/mlx.h"
 #include <math.h>
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 1080
+#define HEIGHT 480
 #define COTE 64
 
 
@@ -52,7 +52,7 @@
 
 
 /* Player speed */
-# define MOVE_SPEED 0.1
+# define MOVE_SPEED 0.01
 # define ROT 0.05
 
 

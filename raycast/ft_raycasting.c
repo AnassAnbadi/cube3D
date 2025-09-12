@@ -6,11 +6,11 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:10 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/11 18:07:11 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/12 21:03:27 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../cube.h"
    // each map cell = 10x10 pixels
 
 void	ft_put_px(t_data *data, int x, int y, int color)
@@ -77,7 +77,7 @@ void	ft_raycasting(t_data *data, int x, double camera_x)
 		x++;
 	}
     mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
-	draw_minimap(data);
-	draw_player_on_minimap(data);
-	draw_player_dir(data);
+	// draw_minimap(data);
+	// draw_player_on_minimap(data);
+	// draw_player_dir(data);
 }

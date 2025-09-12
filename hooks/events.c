@@ -6,11 +6,11 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:06:55 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/11 18:06:56 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/12 21:02:59 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../cube.h"
 
 
 int mouse_move(int x, int y, t_data *data)
