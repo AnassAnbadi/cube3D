@@ -9,9 +9,34 @@
 #include <unistd.h>
 // #include <mlx.h>
 
+#define WIDTH 1920
+#define HEIGHT 1080
+#define COTE 64
+
+# define TITLE "cub3D"
+
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 #define BUFFER_SIZE 32
+
+# define ESC 65307
+
+# define CLOSE_BUTTON 17   // DestroyNotify
+
+/* Movement keys (WASD) */
+# define W 119
+# define D 100
+# define S 115
+# define A 97
+
+/* Arrow keys */
+# define LEFT 65361
+# define RIGHT 65363
+
+
+/* Player speed */
+# define MOVE_SPEED 0.1
+# define ROT 0.05
 
 typedef struct s_garbage_collector
 {
@@ -19,25 +44,89 @@ typedef struct s_garbage_collector
     struct s_garbage_collector *next;
 } t_gc;
 
-typedef struct s_vector
+
+typedef enum e_wall
 {
-    float x;
-    float y;
-} t_vector;
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+}				t_wall;
 
-typedef struct s_player {
-    t_vector position;
-    t_vector direction;
-    t_vector plane; // Camera plane for field of view
-} t_player;
+typedef struct	s_map {
+	int		x;
+	int 	y;
+}				t_map;
 
-typedef struct s_img {
-    void *img;
-    char *addr;
-    int bits_per_pixel;
-    int size_line;
-    int endian;
-} t_img;
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_mlx;
+
+typedef struct	s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_texture;
+
+typedef struct	s_data {
+
+	t_mlx		img;
+	t_coord		player;
+	t_coord		p_dir;
+	t_coord		plane;
+	t_coord		ray_dir;
+	t_coord		delta;
+	t_coord		side;
+    t_config    config;
+	t_wall		wall;
+	t_texture	tex[4];
+	float 		perp_wall;	
+	char		**map;
+	int 		key_fleche;
+	int 		key_board;
+	int			key_board2;
+	
+
+}				t_data;
+
+typedef struct	s_prm {
+	int	line_height;
+	int	start;
+	int	end;
+	int tex_x;
+}				t_prm;
+
+// typedef struct s_vector
+// {
+//     float x;
+//     float y;
+// } t_vector;
+
+// typedef struct s_player {
+//     t_vector position;
+//     t_vector direction;
+//     t_vector plane; // Camera plane for field of view
+// } t_player;
+
+// typedef struct s_img {
+//     void *img;
+//     char *addr;
+//     int bits_per_pixel;
+//     int size_line;
+//     int endian;
+// } t_img;
 
 typedef struct s_config {
     char *north_texture;
@@ -48,7 +137,7 @@ typedef struct s_config {
     int ceiling_color; // RGB color for the ceiling
 } t_config;
 
-typedef struct s_game {
+typedef struct s_data {
     void *mlx;
     void *window;
     t_img *img;
@@ -56,7 +145,7 @@ typedef struct s_game {
     t_config config;
     char **map;
     int should_close;
-} t_game;
+} t_data;
 
 typedef struct s_mock_map {
     char *line;
@@ -75,18 +164,18 @@ char    **ft_split(char const *s, char c);
 int     ft_isin(const char c, const char *charset);
 int     ft_atoi(const char *str);
 int     is_texture_line(char *line);
-void    parse_texture_line(t_game *game, char *line);
+void    parse_texture_line(t_data *data, char *line);
 int     is_color_line(char *line);
-void    parse_color_line(t_game *game, char *line);
+void    parse_color_line(t_data *data, char *line);
 char    *ft_scipe_empty_spaces_line(char *line, int fd);
 void    *ft_malloc(size_t size);
 void    ft_exit(int code);
 void    ft_error(const char *msg);
 
-void    init_mock_map(t_game *game, char *line, int fd);
-void    init_data_map(t_mock_map *head, t_game *game);
+void    init_mock_map(t_data *data, char *line, int fd);
+void    init_data_map(t_mock_map *head, t_data *data);
 void    check_map(char **map);
-void    init_data(t_game *game, char *filename);
+void    init_data(t_data *data, char *filename);
 int is_space_only(char *line);
 int ft_sum(int *arr, int size);
 int *get_value(void);

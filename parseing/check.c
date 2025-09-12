@@ -32,27 +32,27 @@ int *get_value(void)
     return values;
 }
 
-void parse_texture_line(t_game *game, char *line)
+void parse_texture_line(t_data *data, char *line)
 {
     if (ft_strncmp(line, "NO ", 3) == 0)
     {
         get_value()[0]++;
-        game->config.north_texture = ft_get_value(line + 3);
+        data->config.north_texture = ft_get_value(line + 3);
     }
     else if (ft_strncmp(line, "SO ", 3) == 0)
     {
         get_value()[1]++;
-        game->config.south_texture = ft_get_value(line + 3);
+        data->config.south_texture = ft_get_value(line + 3);
     }
     else if (ft_strncmp(line, "EA ", 3) == 0)
     {
         get_value()[2]++;
-        game->config.east_texture = ft_get_value(line + 3);
+        data->config.east_texture = ft_get_value(line + 3);
     }
     else if (ft_strncmp(line, "WE ", 3) == 0)
     {
         get_value()[3]++;
-        game->config.west_texture = ft_get_value(line + 3);
+        data->config.west_texture = ft_get_value(line + 3);
     }
 }
 int is_color_line(char *line)
@@ -60,7 +60,7 @@ int is_color_line(char *line)
     return (ft_strncmp(line, "F ", 2) == 0 ||
             ft_strncmp(line, "C ", 2) == 0);
 }
-void parse_color_line(t_game *game, char *line)
+void parse_color_line(t_data *data, char *line)
 {
     char **colors;
     int r, g, b;
@@ -80,9 +80,9 @@ void parse_color_line(t_game *game, char *line)
         if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
             ft_error("Color values must be between 0 and 255\n");
         if (ft_strncmp(line, "F ", 2) == 0)
-            game->config.floor_color = (r << 16) | (g << 8) | b;
+            data->config.floor_color = (r << 16) | (g << 8) | b;
         else
-            game->config.ceiling_color = (r << 16) | (g << 8) | b;
+            data->config.ceiling_color = (r << 16) | (g << 8) | b;
     }
     else
         ft_error("Invalid color line\n");
@@ -103,7 +103,7 @@ int is_space_only(char *line)
             return (0);
         i++;
     }
-    if (i == (int)ft_strlen(line) - 1 && line[0] != '\n')
+    if ((i == (int)ft_strlen(line) - 1 && line[0] != '\n') || (i == (int)ft_strlen(line)))
         return (1);
     return (0);
 }
