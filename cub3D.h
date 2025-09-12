@@ -34,6 +34,11 @@
 # define RIGHT 65363
 
 
+// Color definitions
+#define BLUE 0x0000FF //////////////////////////////////////////////////
+#define GREEN 0x00FFA0
+
+
 /* Player speed */
 # define MOVE_SPEED 0.1
 # define ROT 0.05
@@ -53,11 +58,15 @@ typedef enum e_wall
 	WEST
 }				t_wall;
 
+typedef struct	s_coord {
+	double	x;
+	double	y;
+}				t_coord;
+
 typedef struct	s_map {
 	int		x;
 	int 	y;
 }				t_map;
-
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -79,6 +88,15 @@ typedef struct	s_texture
 	int		line_length;
 	int		endian;
 }				t_texture;
+
+typedef struct s_config {
+    char *north_texture;
+    char *south_texture;
+    char *east_texture;
+    char *west_texture;
+    int floor_color;   // RGB color for the floor
+    int ceiling_color; // RGB color for the ceiling
+} t_config;
 
 typedef struct	s_data {
 
@@ -128,24 +146,6 @@ typedef struct	s_prm {
 //     int endian;
 // } t_img;
 
-typedef struct s_config {
-    char *north_texture;
-    char *south_texture;
-    char *east_texture;
-    char *west_texture;
-    int floor_color;   // RGB color for the floor
-    int ceiling_color; // RGB color for the ceiling
-} t_config;
-
-typedef struct s_data {
-    void *mlx;
-    void *window;
-    t_img *img;
-    t_player player;
-    t_config config;
-    char **map;
-    int should_close;
-} t_data;
 
 typedef struct s_mock_map {
     char *line;

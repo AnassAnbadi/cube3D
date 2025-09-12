@@ -75,7 +75,7 @@ void	ft_dda(t_data *data, t_coord step, t_map *map_coord)
 				data->wall = SOUTH;
 			if (data->map[map_coord->y][map_coord->x] == '1')
 				break;
-				data->side.y += data->delta.y;
+			data->side.y += data->delta.y;
 		}
 	}
 }

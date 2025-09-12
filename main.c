@@ -148,8 +148,7 @@ int main(int argc, char **argv)
 {
     t_data  data = {0};
     (void) argc;
-    (void) argv;
-
+    init_data(&data, argv[1]);
 	data.img.mlx = mlx_init();
 	data.img.win = mlx_new_window(data.img.mlx, WIDTH, HEIGHT, TITLE);
     data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
@@ -160,87 +159,12 @@ int main(int argc, char **argv)
     data.tex[EAST] = open_texture(data.img.mlx, "./texture/pink_floyd.xpm");
     data.tex[WEST] = open_texture(data.img.mlx, "./texture/james.xpm");
                     
-    data.player = (t_coord){1.5, 1.5}; // Player position
+    data.player = (t_coord){14.5, 1.5}; // Player position
     data.p_dir = (t_coord){1, 0}; // Player direction vector
     data.plane = (t_coord){0, 0.66};
     data.key_board = -1;
     data.key_board2 = -1;
-    char *map[] = {
-        "11111111111111111111",
-        "10000000000000000001",
-        "10111101111111111001",
-        "10100001000000001001",
-        "10101111011111101001",
-        "10100000010000101001",
-        "10111111011110101001",
-        "10000001000000100001",
-        "11111011111110111111",
-        "10000010000010000001",
-        "10111110111011111001",
-        "10100000100000001001",
-        "10101111101111101001",
-        "10100000000000100001",
-        "10111111111111111001",
-        "10000000000000000001",
-        "11111111111111111111",
-        NULL
-    };
-
-    char *map2[] = {
-        "111111",
-        "100001",
-        "100001",
-        "100001",
-        "111111",
-        NULL
-    };
-
-    char *map3[] = {
-        "11111111111111111111",
-        "10000000000000000001",
-        "10000000000000000001",
-        "10000000000000000001",
-        "10000000010000000001",
-        "10000000010000000001",
-        "10000000110000000001",
-        "10000000000000000001",
-        "10000000000000000001",
-        "10000001111100000001",
-        "10000000000000000001",
-        "10000000000000000001",
-        "100000000000000000011111111111111",
-        "100000000000000000000000000000001",
-        "100000000000000000011111111111101",
-        "100000000000000000000000000000001",
-        "111111111111111111111111111111111",
-        NULL
-    };
-
-    data.map = map;
-    // while(data.map[data.map_length])
-    //     data.map_length++;
-
-    // ft_raycasting(map, &img);
-    // while(map[y])
-    // {
-    //     x = 0;
-    //     while(map[y][x])
-    //     {
-    //         if (map[y][x] == '1')
-    //             print_map(img, x * (1920/strlen(map[0])), y * 1920/strlen(map[0]), 0x00FFFFFF, map);
-    //         else if (map[y][x] == '0')
-    //             print_map(img, x * 1920/strlen(map[0]), y * 1920/strlen(map[0]), 0x00000000, map);
-    //         // else if (map[y][x] == 'P')
-    //         //     print_map(img, x * 100, y * 100, 0x0000FF00);
-    //         x++;
-    //     }
-    //     y++;
-    // }
-
-    // mlx_hook(data.win, 2, 1L<<0, key_press, &data);
-    // mlx_hook(data.win, 3, 1L<<1, key_release, &data);
-
-    // mlx_key_hook(data.img.win, key_hook, &data);
+    
     ft_raycasting(&data, 0, 0.0);
     mlx_hook(data.img.win, 2, 1L<<0, key_press, &data);     // Key press
     mlx_hook(data.img.win, 3, 1L<<1, key_release, &data);   // Key release

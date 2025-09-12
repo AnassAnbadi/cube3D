@@ -18,15 +18,14 @@ int mouse_move(int x, int y, t_data *data)
     static int last_x = WIDTH / 2;
     int delta_x;
     double angle;
-    double old_dir_x;
+    double old_dir_x = data->p_dir.x;
     double old_plane_x;
-    
+
     if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
         return (0);
     delta_x = x - last_x;
     last_x = x;
     angle = delta_x * 0.005;
-    data->p_dir.x;
     data->p_dir.x = data->p_dir.x * cos(angle) - data->p_dir.y * sin(angle);
     data->p_dir.y = old_dir_x * sin(angle) + data->p_dir.y * cos(angle);
     old_plane_x = data->plane.x;

@@ -155,6 +155,23 @@ void print_map(char **map)
     }
     
 }
+void ft_replace_spaces_in_map(char **map)
+{
+    int i = 0;
+    int j = 0;
+
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j])
+        {
+            if (map[i][j] == ' ')
+                map[i][j] = '1';
+            j++;
+        }
+        i++;
+    }
+}
 void init_data(t_data *data, char *filename)
 {
 
@@ -168,8 +185,8 @@ void init_data(t_data *data, char *filename)
         ft_error("Empty file\n");
     line = ft_scipe_empty_spaces_line(line, fd);
     init_param(data, line, fd);
+    ft_replace_spaces_in_map(data->map);
     print_map(data->map);
     close(fd);
-    ft_exit(EXIT_SUCCESS);
 
 }
