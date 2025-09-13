@@ -19,6 +19,8 @@ char *ft_get_value(char *line)
         ft_exit(EXIT_FAILURE);
     }
     end  = line + ft_strlen(line) - 1;
+    if (*end == '\n')
+        *end = '\0';
     while (end > line && (*end == ' '))
         end--;
     end++;
@@ -71,9 +73,11 @@ void parse_color_line(t_data *data, char *line)
             get_value()[4]++;
         else
             get_value()[5]++;
+        line[ft_strlen(line) - 2] = '\0';
         colors = ft_split(line + 2, ',');
         if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3] != NULL)
             ft_error("Invalid color format\n");
+        printf("R: {%s}, G: {%s}, B: {%s}\n", colors[0], colors[1], colors[2]);
         r = ft_atoi(colors[0]);
         g = ft_atoi(colors[1]);
         b = ft_atoi(colors[2]);

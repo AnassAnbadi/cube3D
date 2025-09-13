@@ -172,6 +172,69 @@ void ft_replace_spaces_in_map(char **map)
         i++;
     }
 }
+void ft_init_player(t_data *data)
+{
+    data->player.x = 0;
+    data->player.y = 0;
+    data->p_dir.x = 0;
+    data->p_dir.y = 0;
+    data->plane.x = 0;
+    data->plane.y = 0;
+    int i = 0;
+    int j = 0;
+    int player_count = 0;
+    while (data->map[i])
+    {
+        j = 0;
+        while (data->map[i][j])
+        {
+            if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'E' || data->map[i][j] == 'W')
+            {
+                player_count++;
+                data->player.x = i + 0.5;
+                data->player.y = j + 0.5;
+                if (data->map[i][j] == 'N')
+                {
+                    data->p_dir.x = -1;
+                    data->p_dir.y = 0;
+                    data->plane.x = 0;
+                    data->plane.y = 0.66;
+                }
+                else if (data->map[i][j] == 'S')
+                {
+                    data->p_dir.x = 1;
+                    data->p_dir.y = 0;
+                    data->plane.x = 0;
+                    data->plane.y = -0.66;
+                }
+                else if (data->map[i][j] == 'E')
+                {
+                    data->p_dir.x = 0;
+                    data->p_dir.y = 1;
+                    data->plane.x = 0.66;
+                    data->plane.y = 0;
+                }
+                else if (data->map[i][j] == 'W')
+                {
+                    data->p_dir.x = 0;
+                    data->p_dir.y = -1;
+                    data->plane.x = -0.66;
+                    data->plane.y = 0;
+                }
+                data->map[i][j] = '0';
+            }
+            j++;
+        }
+        i++;
+    }
+    printf("player position x=%f y=%f\n", data->player.x, data->player.y);
+    printf("player direction x=%f y=%f\n", data->p_dir.x, data->p_dir.y);
+    printf("camera plane x=%f y=%f\n", data->plane.x, data->plane.y);
+
+    if (player_count == 0 || player_count > 1)
+        ft_error("No player found or multiple players found in the map\n");
+}
+
 void init_data(t_data *data, char *filename)
 {
 
@@ -186,7 +249,8 @@ void init_data(t_data *data, char *filename)
     line = ft_scipe_empty_spaces_line(line, fd);
     init_param(data, line, fd);
     ft_replace_spaces_in_map(data->map);
-    print_map(data->map);
+    ft_init_player(data);
+    // print_map(data->map);
     close(fd);
 
 }

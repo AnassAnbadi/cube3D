@@ -46,11 +46,11 @@ void	ft_draw_column(t_data *data, int x, int y)
 	while (y < HEIGHT)
 	{
 		if (y < prm.start)
-			ft_put_px(data, x, y, BLUE);////////////////////////////////
+			ft_put_px(data, x, y, data->config.floor_color);
 		else if(y <= prm.end)
 			ft_put_texture(data, x, y, prm);
 		else
-			ft_put_px(data, x, y, GREEN);//////// shouls take it from parsing
+			ft_put_px(data, x, y, data->config.ceiling_color);
 		y++;
 	}
 }

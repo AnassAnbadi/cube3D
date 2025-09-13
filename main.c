@@ -132,11 +132,11 @@
 t_texture	open_texture(void *mlx, char *text)
 {
     t_texture tex;
-
+    text[ft_strlen(text) - 1] = '\0';
     tex.img = mlx_xpm_file_to_image(mlx, text, &tex.width, &tex.height);
     if (!tex.img)
     {
-        printf("Error: failed to load tex2 \n");
+        printf("Error: failed to load {%s} \n", text);
         exit(1);
     }
     tex.addr = mlx_get_data_addr(tex.img, &tex.bits_per_pixel,
@@ -154,13 +154,18 @@ int main(int argc, char **argv)
     data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
     data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 
-    data.tex[NORTH] = open_texture(data.img.mlx, "./texture/nass_elghiwane.xpm");
-    data.tex[SOUTH] = open_texture(data.img.mlx, "./texture/nass_elghiwane.xpm");
-    data.tex[EAST] = open_texture(data.img.mlx, "./texture/pink_floyd.xpm");
-    data.tex[WEST] = open_texture(data.img.mlx, "./texture/james.xpm");
-                    
-    data.player = (t_coord){14.5, 1.5}; // Player position
-    data.p_dir = (t_coord){1, 0}; // Player direction vector
+    // data.tex[NORTH] = open_texture(data.img.mlx, "./texture/nass_elghiwane.xpm");
+    // data.tex[SOUTH] = open_texture(data.img.mlx, "./texture/nass_elghiwane.xpm");
+    // data.tex[EAST] = open_texture(data.img.mlx, "./texture/pink_floyd.xpm");
+    // data.tex[WEST] = open_texture(data.img.mlx, "./texture/james.xpm");
+
+    data.tex[NORTH] = open_texture(data.img.mlx, data.config.north_texture);
+    data.tex[SOUTH] = open_texture(data.img.mlx, data.config.south_texture);
+    data.tex[EAST] = open_texture(data.img.mlx, data.config.east_texture);
+    data.tex[WEST] = open_texture(data.img.mlx, data.config.west_texture);
+
+    data.player = (t_coord){9.500000, 13.500000}; // Player position
+    data.p_dir = (t_coord){-1, 0}; // Player direction vector
     data.plane = (t_coord){0, 0.66};
     data.key_board = -1;
     data.key_board2 = -1;

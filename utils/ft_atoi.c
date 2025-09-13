@@ -12,11 +12,38 @@
 
 #include "../cub3D.h"
 
+int is_number(const char *str)
+{
+	if (*str == '+' || *str == '-')
+		str++;
+	if (!*str)
+		return (0);
+	while (*str  && ft_white_space(*str))
+		str++;
+	if (!*str)
+		return (0);
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			{
+				while (*str && ft_white_space(*str))
+					str++;
+				if (*str != '\0')
+					return (0);
+			}
+		str++;
+	}
+	printf("is number\n");
+	return (1);
+}
+
 int	ft_atoi(const char *str)
 {
 	unsigned long	num;
 	int				s;
 
+	if(!is_number(str))
+		ft_error("Error\nInvalid number format\n");
 	num = 0;
 	s = 1;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
@@ -26,9 +53,9 @@ int	ft_atoi(const char *str)
 			s *= -1;
 	while (*str >= '0' && *str <= '9')
 	{
-		if (num * 10 + *str - '0' > LONG_MAX)
+		if (num * 10 + *str - '0' > INT_MAX)
 		{
-			return (-(s + 1) / 2);
+			return (-1);
 		}
 		num = num * 10 + *str++ - '0';
 	}

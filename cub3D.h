@@ -180,6 +180,7 @@ int is_space_only(char *line);
 int ft_sum(int *arr, int size);
 int *get_value(void);
 char *ft_scipe_spaces(char *line);
+int ft_white_space(char c);
 
 
 
