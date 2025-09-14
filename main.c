@@ -164,9 +164,9 @@ int main(int argc, char **argv)
     data.tex[EAST] = open_texture(data.img.mlx, data.config.east_texture);
     data.tex[WEST] = open_texture(data.img.mlx, data.config.west_texture);
 
-    data.player = (t_coord){9.500000, 13.500000}; // Player position
-    data.p_dir = (t_coord){-1, 0}; // Player direction vector
-    data.plane = (t_coord){0, 0.66};
+    // data.player = (t_coord){9.500000, 13.500000}; // Player position
+    // data.p_dir = (t_coord){-1, 0}; // Player direction vector
+    // data.plane = (t_coord){0, 0.66};
     data.key_board = -1;
     data.key_board2 = -1;
     

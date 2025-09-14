@@ -191,8 +191,8 @@ void ft_init_player(t_data *data)
             if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'E' || data->map[i][j] == 'W')
             {
                 player_count++;
-                data->player.x = i + 0.5;
-                data->player.y = j + 0.5;
+                data->player.x = j + 0.5;
+                data->player.y = i + 0.5;
                 if (data->map[i][j] == 'N')
                 {
                     data->p_dir.x = -1;
