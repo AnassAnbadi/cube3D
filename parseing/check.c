@@ -11,16 +11,14 @@ int is_texture_line(char *line)
 char *ft_get_value(char *line)
 {
     char *end;
-    while (*line && (*line == ' '))
+    while (*line && (ft_white_space(*line)))
         line++;
     if (*line == '\0')
     {
-        ft_error("Error\nInvalid texture path\n");
+        ft_error("Invalid texture path\n");
     }
     end  = line + ft_strlen(line) - 1;
-    if (*end == '\n')
-        *end = '\0';
-    while (end > line && (*end == ' '))
+    while (end > line && (ft_white_space(*end)))
         end--;
     end++;
 
@@ -72,7 +70,7 @@ void parse_color_line(t_data *data, char *line)
             get_value()[4]++;
         else
             get_value()[5]++;
-        line[ft_strlen(line) - 2] = '\0';
+        line[ft_strlen(line) - 1] = '\0';
         colors = ft_split(line + 2, ',');
         if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3] != NULL)
             ft_error("Invalid color format\n");
@@ -91,7 +89,7 @@ void parse_color_line(t_data *data, char *line)
 }
 int ft_white_space(char c)
 {
-    if (c == ' ' || c == '\t'  || c == '\v' || c == '\f' || c == '\r')
+    if (c == ' ' || (c >= 9 && c <= 13))
         return (1);
     return (0);
 }

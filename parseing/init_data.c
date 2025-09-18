@@ -1,6 +1,5 @@
 #include "../cub3D.h"
 
-
 void init_param(t_data *data, char *line, int fd)
 {
     line = ft_scipe_empty_spaces_line(line, fd);
@@ -28,7 +27,7 @@ int is_empty_or_all_space(char *line)
 {
     while (*line)
     {
-        if (*line != ' ' && *line != '\n')
+        if (!ft_white_space(*line))
             return (0);
         line++;
     }
@@ -63,10 +62,11 @@ void init_data_map(t_mock_map *head, t_data *data)
 
 int	ft_isin(const char c, const char *charset)
 {
+    char    *ptr = (char *)charset;
 	while (*charset)
 	{
 		if (*charset == c)
-			return (1);
+            return (charset - ptr + 1);
 		charset++;
 	}
 	return (0);
@@ -79,29 +79,30 @@ void check_map(char **map)
 
     len = 0;
     i = 0;
-    while (map[len])
-        len++;
-    while (i < len) {
-        j = 0;
-        while (map[i][j]) {
-            if (!ft_isin(map[i][j], " \r01NSEW"))
-                ft_error("Invalid character in map\n");
-            if (map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'S'
-                    || map[i][j] == 'E' || map[i][j] == 'W')
+while (map[len])
+    len++;
+while (i < len) {
+    j = 0;
+    while (map[i][j]) {
+        if (!ft_isin(map[i][j], ft_strjoin(W_S, "01NSEW")))
+            ft_error("Invalid character in map\n");
+        if (ft_isin(map[i][j], "0NSEW"))
+        {
+            if (i == 0 || i == len - 1 || j == 0 || j == (int)ft_strlen(map[i]) - 1)
+                ft_error("Map is not closed (border)\n");
+            if (j >= (int)ft_strlen(map[i - 1]) || j >= (int)ft_strlen(map[i + 1]) ||
+                map[i - 1][j] == ' ' || map[i + 1][j] == ' ' ||
+                map[i][j - 1] == ' ' || map[i][j + 1] == ' ')
             {
-                if (i == 0 || i == len - 1 || j == 0 || j == (int)ft_strlen(map[i]) - 1)
-                    ft_error("Map is not closed0\n");
-                if (map[i - 1][j] == ' ' || map[i + 1][j] == ' ' ||
-                    map[i][j - 1] == ' ' || map[i][j + 1] == ' ')
-                {
-                    ft_error("Map is not closed1\n");
-                }
+                ft_error("Map is not closed (adjacent to void)\n");
             }
-            j++;
         }
-        i++;
+        j++;
     }
+    i++;
 }
+}
+
 
 int check_lines_empty(char *line, int fd)
 {

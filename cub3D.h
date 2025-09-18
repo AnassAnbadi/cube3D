@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <unistd.h>
-#include "mlx/mlx.h"
+#include "mlx.h"
 
 #define WIDTH 1920
 #define HEIGHT 1080
@@ -15,29 +15,41 @@
 
 # define TITLE "cub3D"
 
+#define W_S " \t\n\v\f\r"
+
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 #define BUFFER_SIZE 32
 
-# define ESC 65307
+// # define ESC 65307
 
-# define CLOSE_BUTTON 17   // DestroyNotify
+// # define CLOSE_BUTTON 17   // DestroyNotify
+
+// /* Movement keys (WASD) */
+// # define W 119
+// # define D 100
+// # define S 115
+// # define A 97
+
+// /* Arrow keys */
+// # define LEFT 65361
+// # define RIGHT 65363
+
+
+/* Exit keys */
+# define ESC 53
+# define CLOSE_BUTTON 17   // DestroyNotify (same as Linux)
 
 /* Movement keys (WASD) */
-# define W 119
-# define D 100
-# define S 115
-# define A 97
+# define W 13
+# define D 2
+# define S 1
+# define A 0
 
 /* Arrow keys */
-# define LEFT 65361
-# define RIGHT 65363
 
-
-// Color definitions
-#define BLUE 0x0000FF //////////////////////////////////////////////////
-#define GREEN 0x00FFA0
-
+# define LEFT 123
+# define RIGHT 124
 
 /* Player speed */
 # define MOVE_SPEED 0.1
@@ -126,25 +138,6 @@ typedef struct	s_prm {
 	int tex_x;
 }				t_prm;
 
-// typedef struct s_vector
-// {
-//     float x;
-//     float y;
-// } t_vector;
-
-// typedef struct s_player {
-//     t_vector position;
-//     t_vector direction;
-//     t_vector plane; // Camera plane for field of view
-// } t_player;
-
-// typedef struct s_img {
-//     void *img;
-//     char *addr;
-//     int bits_per_pixel;
-//     int size_line;
-//     int endian;
-// } t_img;
 
 
 typedef struct s_mock_map {

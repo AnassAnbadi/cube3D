@@ -11,20 +11,20 @@ SRCS = main.c raycast/ft_raycasting.c raycast/ft_put_texture.c hooks/keyboard_mo
        utils/utils.c
 
 OBJS = $(SRCS:.c=.o)
-HEADER = Cub3D.h
+HEADER = cub3D.h
 
 
 all : $(NAME)
 
-# $(NAME): $(OBJS)
-# 	$(CC) $(OBJS)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-
 $(NAME): $(OBJS)
-	$(CC) $(OBJS)  -Lmlx -lmlx_Linux -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJS)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
+# $(NAME): $(OBJS)
+# 	$(CC) $(OBJS)  -Lmlx -lmlx_Linux -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
 
 
 %.o : %.c $(HEADER)
-	$(CC) -Imlx -c $< -o $@   
+	$(CC) -c $< -o $@   
 
 # $(CFLAGS) //////////////////////////////////////////////
 
