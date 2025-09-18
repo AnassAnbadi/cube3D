@@ -15,8 +15,7 @@ char *ft_get_value(char *line)
         line++;
     if (*line == '\0')
     {
-        printf("Error\nInvalid texture path\n");
-        ft_exit(EXIT_FAILURE);
+        ft_error("Error\nInvalid texture path\n");
     }
     end  = line + ft_strlen(line) - 1;
     if (*end == '\n')
@@ -65,7 +64,7 @@ int is_color_line(char *line)
 void parse_color_line(t_data *data, char *line)
 {
     char **colors;
-    int r, g, b;
+    int rgb[3];
 
     if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
     {
@@ -77,16 +76,15 @@ void parse_color_line(t_data *data, char *line)
         colors = ft_split(line + 2, ',');
         if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3] != NULL)
             ft_error("Invalid color format\n");
-        printf("R: {%s}, G: {%s}, B: {%s}\n", colors[0], colors[1], colors[2]);
-        r = ft_atoi(colors[0]);
-        g = ft_atoi(colors[1]);
-        b = ft_atoi(colors[2]);
-        if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+        rgb[0] = ft_atoi(colors[0]);
+        rgb[1] = ft_atoi(colors[1]);
+        rgb[2] = ft_atoi(colors[2]);
+        if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0 || rgb[1] > 255 || rgb[2] < 0 || rgb[2] > 255)
             ft_error("Color values must be between 0 and 255\n");
         if (ft_strncmp(line, "F ", 2) == 0)
-            data->config.floor_color = (r << 16) | (g << 8) | b;
+            data->config.floor_color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
         else
-            data->config.ceiling_color = (r << 16) | (g << 8) | b;
+            data->config.ceiling_color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
     }
     else
         ft_error("Invalid color line\n");
