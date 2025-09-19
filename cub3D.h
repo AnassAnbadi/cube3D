@@ -11,7 +11,6 @@
 
 #define WIDTH 1920
 #define HEIGHT 1080
-#define COTE 64
 
 # define TITLE "cub3D"
 
@@ -21,24 +20,10 @@
 #define EXIT_SUCCESS 0
 #define BUFFER_SIZE 32
 
-// # define ESC 65307
-
-// # define CLOSE_BUTTON 17   // DestroyNotify
-
-// /* Movement keys (WASD) */
-// # define W 119
-// # define D 100
-// # define S 115
-// # define A 97
-
-// /* Arrow keys */
-// # define LEFT 65361
-// # define RIGHT 65363
-
 
 /* Exit keys */
 # define ESC 53
-# define CLOSE_BUTTON 17   // DestroyNotify (same as Linux)
+# define CLOSE_BUTTON 17 
 
 /* Movement keys (WASD) */
 # define W 13
@@ -106,8 +91,8 @@ typedef struct s_config {
     char *south_texture;
     char *east_texture;
     char *west_texture;
-    int floor_color;   // RGB color for the floor
-    int ceiling_color; // RGB color for the ceiling
+    int floor_color;
+    int ceiling_color;
 } t_config;
 
 typedef struct	s_data {
@@ -160,7 +145,6 @@ int     is_texture_line(char *line);
 void    parse_texture_line(t_data *data, char *line);
 int     is_color_line(char *line);
 void    parse_color_line(t_data *data, char *line);
-char    *ft_scipe_empty_spaces_line(char *line, int fd);
 void    *ft_malloc(size_t size);
 void    ft_exit(int code);
 void    ft_error(const char *msg);
@@ -174,7 +158,15 @@ int ft_sum(int *arr, int size);
 int *get_value(void);
 char *ft_scipe_spaces(char *line);
 int ft_white_space(char c);
-
+void ft_init_player(t_data *data);
+void ft_replace_spaces_in_map(char **map);
+int check_lines_empty(char *line, int fd);
+int	ft_isin(const char c, const char *charset);
+char *ft_scipe_empty_spaces_line(char *line, int fd);
+int  *get_value1(void);
+t_texture	open_texture(t_data *data, char *text);
+void ft_destroy_img_texture(t_data *data , int *tab , char *msg);
+void ft_init_textures(t_data *data);
 
 
 

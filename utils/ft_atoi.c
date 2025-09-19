@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aanbadi <aanbadi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:53:32 by aanbadi           #+#    #+#             */
-/*   Updated: 2025/09/06 20:42:51 by aanbadi          ###   ########.fr       */
+/*   Created: 2025/09/19 21:45:58 by aanbadi           #+#    #+#             */
+/*   Updated: 2025/09/19 21:45:58 by aanbadi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,16 @@ int ft_sum(int *arr, int size)
 		sum += arr[i];
 	}
 	return sum;
+}
+
+int	ft_isin(const char c, const char *charset)
+{
+    char    *ptr = (char *)charset;
+	while (*charset)
+	{
+		if (*charset == c)
+            return (charset - ptr + 1);
+		charset++;
+	}
+	return (0);
 }

@@ -2,13 +2,15 @@ NAME = cube
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
-SRCS = main.c raycast/ft_raycasting.c raycast/ft_put_texture.c hooks/keyboard_move.c hooks/events.c raycast/ft_dda.c parseing/check.c \
+SRCS = main.c init_texture.c raycast/ft_raycasting.c raycast/ft_put_texture.c hooks/keyboard_move.c hooks/events.c raycast/ft_dda.c parseing/check.c \
        parseing/init_data.c \
        utils/ft_.c \
        utils/ft_atoi.c \
        utils/ft_split.c \
        utils/get_next_line.c \
-       utils/utils.c
+       utils/utils.c \
+       parseing/init_element.c \
+       utils/utils1.c
 
 OBJS = $(SRCS:.c=.o)
 HEADER = cub3D.h
@@ -24,7 +26,7 @@ $(NAME): $(OBJS)
 
 
 %.o : %.c $(HEADER)
-	$(CC) -c $< -o $@   
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # $(CFLAGS) //////////////////////////////////////////////
 
