@@ -12,107 +12,104 @@
 
 #include "../cub3D.h"
 
-void init_param(t_data *data, char *line, int fd)
+void	init_param(t_data *data, char *line, int fd)
 {
-    line = ft_scipe_empty_spaces_line(line, fd);
-    while (line) {
-        if (is_texture_line(ft_scipe_spaces(line))) {
-            parse_texture_line(data, ft_scipe_spaces(line));
-        } else if (is_color_line(ft_scipe_spaces(line))) {
-            parse_color_line(data, ft_scipe_spaces(line));
-        } else {
-            break;
-        }
-        line = get_next_line(fd);
-        line = ft_scipe_empty_spaces_line(line, fd);
-    }
-    if (!line)
-        ft_error("No map data found\n");
-    line = ft_scipe_empty_spaces_line(line, fd);
-    if(ft_sum(get_value(), 6) != 6)
-        ft_error("Missing or duplicate configuration parameters\n");
-    init_mock_map(data, line, fd);
-    
+	line = ft_scipe_empty_spaces_line(line, fd);
+	while (line)
+	{
+		if (is_texture_line(ft_scipe_spaces(line)))
+			parse_texture_line(data, ft_scipe_spaces(line));
+		else if (is_color_line(ft_scipe_spaces(line)))
+			parse_color_line(data, ft_scipe_spaces(line));
+		else
+			break ;
+		line = get_next_line(fd);
+		line = ft_scipe_empty_spaces_line(line, fd);
+	}
+	if (!line)
+		ft_error("No map data found\n");
+	line = ft_scipe_empty_spaces_line(line, fd);
+	if (ft_sum(get_value(), 6) != 6)
+		ft_error("Missing or duplicate configuration parameters\n");
+	init_mock_map(data, line, fd);
 }
 
-int is_empty_or_all_space(char *line)
+int	is_empty_or_all_space(char *line)
 {
-    while (*line)
-    {
-        if (!ft_white_space(*line))
-            return (0);
-        line++;
-    }
-    return (1);
+	while (*line)
+	{
+		if (!ft_white_space(*line))
+			return (0);
+		line++;
+	}
+	return (1);
 }
 
-void init_data_map(t_mock_map *head, t_data *data)
+void	init_data_map(t_mock_map *head, t_data *data)
 {
-    t_mock_map *current;
-    int map_length;
-    int i;
+	t_mock_map	*current;
+	int			map_length;
+	int			i;
 
-    map_length = 0;
-    current = head;
-    while (current)
-    {
-        map_length++;
-        current = current->next;
-    }
-    data->map = ft_malloc(sizeof(char *) * (map_length + 1));
-    data->map[map_length] = NULL;
-    current = head;
-    i = map_length - 1;
-    while (current)
-    {
-        data->map[i] = current->line;
-        current = current->next;
-        i--;
-    }
-    check_map(data->map);
+	map_length = 0;
+	current = head;
+	while (current)
+	{
+		map_length++;
+		current = current->next;
+	}
+	data->map = ft_malloc(sizeof(char *) * (map_length + 1));
+	data->map[map_length] = NULL;
+	current = head;
+	i = map_length - 1;
+	while (current)
+	{
+		data->map[i] = current->line;
+		current = current->next;
+		i--;
+	}
+	check_map(data->map);
 }
 
-
-void init_mock_map(t_data *data, char *line, int fd)
+void	init_mock_map(t_data *data, char *line, int fd)
 {
-    t_mock_map *head;
-    t_mock_map *current;
+	t_mock_map	*head;
+	t_mock_map	*current;
 
-    head = NULL;
-    while (line)
-    {
-        if(is_space_only(line))
-        {
-            if (check_lines_empty(line, fd))
-                break;
-            ft_error("Map is not closed2\n");
-        }
-        current = ft_malloc(sizeof(t_mock_map));
-        current->line = line;
-        current->line[ft_strlen(current->line) - 1] = '\0';
-        current->next = head;
-        head = current;
-        line = get_next_line(fd);
-    }
-    init_data_map(head, data);
+	head = NULL;
+	while (line)
+	{
+		if (is_space_only(line))
+		{
+			if (check_lines_empty(line, fd))
+				break ;
+			ft_error("Map is not closed2\n");
+		}
+		current = ft_malloc(sizeof(t_mock_map));
+		current->line = line;
+		current->line[ft_strlen(current->line) - 1] = '\0';
+		current->next = head;
+		head = current;
+		line = get_next_line(fd);
+	}
+	init_data_map(head, data);
 }
 
-
-
-
-void init_data(t_data *data, char *filename)
+void	init_data(t_data *data, char *filename)
 {
-    char *line=NULL;
-    int fd;
-    fd = open(filename, O_RDONLY);
-    if (fd < 0)
-       ft_error("fd\n");
-    line = get_next_line(fd);
-    if (!line)
-        ft_error("Empty file\n");
-    line = ft_scipe_empty_spaces_line(line, fd);
-    init_param(data, line, fd);
-    ft_replace_spaces_in_map(data->map);
-    ft_init_player(data);
-    close(fd);
+	char	*line;
+	int		fd;
+
+	line = NULL;
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		ft_error("fd\n");
+	line = get_next_line(fd);
+	if (!line)
+		ft_error("Empty file\n");
+	line = ft_scipe_empty_spaces_line(line, fd);
+	init_param(data, line, fd);
+	ft_replace_spaces_in_map(data->map);
+	ft_init_player(data);
+	close(fd);
 }
