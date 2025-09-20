@@ -26,7 +26,6 @@ static char	*read_from_file(int fd, char *temp_buffer, char *stored_data)
 			return (stored_data);
 		temp_buffer[bytes_read] = '\0';
 		new_data = ft_strjoin(stored_data, temp_buffer);
-		// free(stored_data);
 		if (!new_data)
 			return (NULL);
 		stored_data = new_data;
@@ -63,7 +62,6 @@ static char	*update_stored_data(char *stored_data)
 	if (stored_data[line_length] == '\n')
 		line_length++;
 	new_data = ft_strdup(&stored_data[line_length]);
-	// free(stored_data);
 	if (new_data && new_data[0] == '\0')
 		return (NULL);
 	return (new_data);

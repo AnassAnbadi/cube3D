@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:01 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/12 21:03:13 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/20 21:49:33 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	ft_dda(t_data *data, t_coord step, t_map *map_coord)
 			data->wall = WEST;
 			if (step.x > 0)
 				data->wall = EAST;
-			if (data->map[map_coord->y][map_coord->x] == '1') 
-				break;
+			if (data->map[map_coord->y][map_coord->x] == '1')
+				break ;
 			data->side.x += data->delta.x;
 		}
 		else
@@ -74,7 +74,7 @@ void	ft_dda(t_data *data, t_coord step, t_map *map_coord)
 			if (step.y > 0)
 				data->wall = SOUTH;
 			if (data->map[map_coord->y][map_coord->x] == '1')
-				break;
+				break ;
 			data->side.y += data->delta.y;
 		}
 	}

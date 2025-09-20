@@ -6,12 +6,11 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:10 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/12 21:03:27 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/20 21:50:48 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-   // each map cell = 10x10 pixels
 
 void	ft_put_px(t_data *data, int x, int y, int color)
 {
@@ -19,12 +18,12 @@ void	ft_put_px(t_data *data, int x, int y, int color)
 
 	dst = data->img.addr + (y * data->img.line_length
 			+ x * (data->img.bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
-int ft_find_tex_x(t_data *data)
+static int	ft_find_tex_x(t_data *data)
 {
-	double wall_x;
+	double	wall_x;
 
 	if (data->wall == EAST || data->wall == WEST)
 		wall_x = data->player.y + data->perp_wall * data->ray_dir.y;
@@ -34,8 +33,7 @@ int ft_find_tex_x(t_data *data)
 	return ((int)(wall_x * (double)data->tex[data->wall].width));
 }
 
-
-void	ft_draw_column(t_data *data, int x, int y)
+static void	ft_draw_column(t_data *data, int x, int y)
 {
 	t_prm	prm;
 
@@ -47,7 +45,7 @@ void	ft_draw_column(t_data *data, int x, int y)
 	{
 		if (y < prm.start)
 			ft_put_px(data, x, y, data->config.floor_color);
-		else if(y <= prm.end)
+		else if (y <= prm.end)
 			ft_put_texture(data, x, y, prm);
 		else
 			ft_put_px(data, x, y, data->config.ceiling_color);
@@ -57,8 +55,8 @@ void	ft_draw_column(t_data *data, int x, int y)
 
 void	ft_raycasting(t_data *data, int x, double camera_x)
 {
-    t_map map_coord;
-	t_coord step;
+	t_map	map_coord;
+	t_coord	step;
 
 	while (x < WIDTH)
 	{
@@ -76,8 +74,5 @@ void	ft_raycasting(t_data *data, int x, double camera_x)
 		ft_draw_column(data, x, 0);
 		x++;
 	}
-    mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
-	// draw_minimap(data);
-	// draw_player_on_minimap(data);
-	// draw_player_dir(data);
+	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
 }
