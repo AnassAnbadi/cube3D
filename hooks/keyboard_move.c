@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:15 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/20 20:47:45 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:23:43 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,30 @@ static void	move_backward(t_data *data)
 static void	move_right(t_data *data)
 {
 	if (data->map[(int)(data->player.y)]
-		[(int)(data->player.x + data->plane.x * MOVE_SPEED * 4)] == '0')
+		[(int)(data->player.x + data->normal.x * MOVE_SPEED * 4)] == '0')
 	{
-		data->player.x += data->plane.x * MOVE_SPEED;
+		data->player.x += data->normal.x * MOVE_SPEED;
 	}
 	if (data->map[(int)(data->player.y
-			+ data->plane.y * MOVE_SPEED * 4)]
+			+ data->normal.y * MOVE_SPEED * 4)]
 		[(int)(data->player.x)] == '0')
 	{
-		data->player.y += data->plane.y * MOVE_SPEED;
+		data->player.y += data->normal.y * MOVE_SPEED;
 	}
 }
 
 static void	move_left(t_data *data)
 {
 	if (data->map[(int)(data->player.y)]
-		[(int)(data->player.x - data->plane.x * MOVE_SPEED * 4)] == '0')
+		[(int)(data->player.x - data->normal.x * MOVE_SPEED * 4)] == '0')
 	{
-		data->player.x -= data->plane.x * MOVE_SPEED;
+		data->player.x -= data->normal.x * MOVE_SPEED;
 	}
 	if (data->map[(int)(data->player.y
-			- data->plane.y * MOVE_SPEED * 4)]
+			- data->normal.y * MOVE_SPEED * 4)]
 		[(int)(data->player.x)] == '0')
 	{
-		data->player.y -= data->plane.y * MOVE_SPEED;
+		data->player.y -= data->normal.y * MOVE_SPEED;
 	}
 }
 

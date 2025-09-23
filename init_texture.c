@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 22:31:09 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/20 22:38:19 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:22:08 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	ft_destroy_img_texture(t_data *data, int *tab, char *msg)
 	}
 	mlx_destroy_image(data->img.mlx, data->img.img);
 	mlx_destroy_window(data->img.mlx, data->img.win);
-	free(data->img.mlx);
+	// free(data->img.mlx);/////////////////////////////////
 	if (ft_strlen(msg) > 1)
 		ft_error(msg);
-	exit(0);
+	ft_exit(0);
 }
 
 int	*get_value1(void)

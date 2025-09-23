@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:10 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/20 21:50:48 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:23:51 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ static void	ft_draw_column(t_data *data, int x, int y)
 	}
 }
 
-void	ft_raycasting(t_data *data, int x, double camera_x)
+void	ft_raycasting(t_data *data, int x, double alpha)
 {
 	t_map	map_coord;
 	t_coord	step;
 
 	while (x < WIDTH)
 	{
-		camera_x = 2 * x / (double)WIDTH - 1;
-		data->ray_dir.x = data->p_dir.x + (data->plane.x * camera_x);
-		data->ray_dir.y = data->p_dir.y + (data->plane.y * camera_x);
+		alpha = 2 * x / (double)WIDTH - 1;
+		data->ray_dir.x = data->p_dir.x + (data->normal.x * alpha);
+		data->ray_dir.y = data->p_dir.y + (data->normal.y * alpha);
 		map_coord.x = (int)data->player.x;
 		map_coord.y = (int)data->player.y;
 		ft_get_step(data, &step, map_coord);

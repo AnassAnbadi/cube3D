@@ -1,4 +1,4 @@
-NAME = cube
+NAME = cub3D
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
@@ -15,20 +15,19 @@ SRCS = main.c init_texture.c raycast/ft_raycasting.c raycast/ft_put_texture.c ho
 OBJS = $(SRCS:.c=.o)
 HEADER = cub3D.h
 
-
 all : $(NAME)
-
-# $(NAME): $(OBJS)
-# 	$(CC) $(OBJS)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+bonus : $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -fsanitize=address -Lmlx -lmlx_Linux -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJS)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
+# $(NAME): $(OBJS)
+# 	$(CC) $(OBJS) -fsanitize=address -Lmlx -lmlx_Linux -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
 
 
 %.o : %.c $(HEADER)
 	$(CC) -Imlx $(CFLAGS) -c $< -o $@
 
-# $(CFLAGS) //////////////////////////////////////////////
 
 clean :
 	$(RM) $(OBJS)

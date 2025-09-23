@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <unistd.h>
-# include "mlx.h"
+# include <mlx.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -111,7 +111,7 @@ typedef struct s_data
 	t_mlx		img;
 	t_coord		player;
 	t_coord		p_dir;
-	t_coord		plane;
+	t_coord		normal;
 	t_coord		ray_dir;
 	t_coord		delta;
 	t_coord		side;
@@ -176,7 +176,7 @@ t_texture	open_texture(t_data *data, char *text);
 void		ft_destroy_img_texture(t_data *data, int *tab, char *msg);
 void		ft_init_textures(t_data *data);
 
-void		ft_raycasting(t_data *data, int x, double camera_x);
+void		ft_raycasting(t_data *data, int x, double alpha_x);
 void		ft_put_texture(t_data *data, int x, int y, t_prm prm);
 void		ft_put_px(t_data *data, int x, int y, int color);
 void		keyboard_move(t_data *data);

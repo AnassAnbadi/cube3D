@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:19 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/20 22:18:15 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:26:27 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ void	ft_init_mlx(t_data *data)
 			&data->img.line_length,
 			&data->img.endian);
 }
-
+// void f(void){///////////////////////////////
+// 	system("leaks cub3D");
+// }
 int	main(int argc, char **argv)
 {
+	atexit(f);////////////////////////////////////
 	t_data	data;
 
 	data = (t_data){0};
@@ -56,6 +59,8 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(data.img.mlx, move_, &data);
 	mlx_hook(data.img.win, 6, 0, mouse_move, &data);
 	mlx_hook(data.img.win, 17, 0, close_window, &data);
+	// exit(0);
 	mlx_loop(data.img.mlx);
+
 	return (0);
 }

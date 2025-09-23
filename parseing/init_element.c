@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 21:46:19 by aanbadi           #+#    #+#             */
-/*   Updated: 2025/09/20 22:44:47 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:23:47 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	ft_init_unit_p(t_data *data, int i, int j)
 		+ (data->map[i][j] == 'S');
 	data->p_dir.x = (data->map[i][j] == 'E')
 		- (data->map[i][j] == 'W');
-	data->plane.y = 0.66 * ((data->map[i][j] == 'E')
+	data->normal.y = 0.66 * ((data->map[i][j] == 'E')
 			- (data->map[i][j] == 'W'));
-	data->plane.x = -0.66 * ((data->map[i][j] == 'N')
+	data->normal.x = -0.66 * ((data->map[i][j] == 'N')
 			+ (data->map[i][j] == 'S'));
 }
 
