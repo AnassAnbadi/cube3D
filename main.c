@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:07:19 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/23 15:26:27 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:57:39 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	ft_init_mlx(t_data *data)
 	data->img.win = mlx_new_window(data->img.mlx, WIDTH, HEIGHT, TITLE);
 	if (!data->img.win)
 	{
-		free(data->img.mlx);
+		// free(data->img.mlx);//////////////////
 		ft_error("Failed to create window\n");
 	}
 	data->img.img = mlx_new_image(data->img.mlx, WIDTH, HEIGHT);
 	if (!data->img.img)
 	{
 		mlx_destroy_window(data->img.mlx, data->img.win);
-		free(data->img.mlx);
+		// free(data->img.mlx);///////////////////////////////////
 		ft_error("Failed to create image\n");
 	}
 	data->img.addr = mlx_get_data_addr(
@@ -36,9 +36,9 @@ void	ft_init_mlx(t_data *data)
 			&data->img.line_length,
 			&data->img.endian);
 }
-// void f(void){///////////////////////////////
-// 	system("leaks cub3D");
-// }
+void f(void){///////////////////////////////
+	system("leaks cub3D");
+}
 int	main(int argc, char **argv)
 {
 	atexit(f);////////////////////////////////////

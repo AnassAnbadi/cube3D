@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <unistd.h>
-# include <mlx.h>
+# include "./mlx/mlx.h"
 
 # define WIDTH 1920
 # define HEIGHT 1080
