@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <unistd.h>
-# include "./mlx/mlx.h"
+# include "mlx.h"
 
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -175,6 +175,7 @@ int			*get_value1(void);
 t_texture	open_texture(t_data *data, char *text);
 void		ft_destroy_img_texture(t_data *data, int *tab, char *msg);
 void		ft_init_textures(t_data *data);
+char		*ft_get_value(char *line, int flag);
 
 void		ft_raycasting(t_data *data, int x, double alpha_x);
 void		ft_put_texture(t_data *data, int x, int y, t_prm prm);

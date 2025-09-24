@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aanbadi <aanbadi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:06:55 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/23 15:23:37 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/24 02:47:32 by aanbadi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	key_release(int keycode, t_data *data)
 
 int	close_window(t_data *data)
 {
+	printf("Close window\n");
 	exit(0);//////////////////
 	ft_destroy_img_texture(data, get_value1(), "E");
 	return (0);

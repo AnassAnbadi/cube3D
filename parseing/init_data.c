@@ -86,8 +86,7 @@ void	init_mock_map(t_data *data, char *line, int fd)
 			ft_error("Map is not closed2\n");
 		}
 		current = ft_malloc(sizeof(t_mock_map));
-		current->line = line;
-		current->line[ft_strlen(current->line) - 1] = '\0';
+		current->line = ft_get_value(line, 0);
 		current->next = head;
 		head = current;
 		line = get_next_line(fd);

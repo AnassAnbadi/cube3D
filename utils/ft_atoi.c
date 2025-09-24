@@ -33,7 +33,6 @@ int	is_number(const char *str)
 		}
 		str++;
 	}
-	printf("is number\n");
 	return (1);
 }
 
@@ -43,7 +42,7 @@ int	ft_atoi(const char *str)
 	int				s;
 
 	if (!is_number(str))
-		ft_error("Error\nInvalid number format\n");
+		ft_error("Invalid number format\n");
 	num = 0;
 	s = 1;
 	while ((*str >= 9 && *str <= 13) || *str == 32)

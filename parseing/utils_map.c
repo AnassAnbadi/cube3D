@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aanbadi <aanbadi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 22:39:58 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/20 22:44:04 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/24 02:12:01 by aanbadi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_replace_spaces_in_map(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == ' ')
+			if (ft_white_space(map[i][j]))
 				map[i][j] = '1';
 			j++;
 		}
