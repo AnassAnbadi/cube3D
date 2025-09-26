@@ -61,6 +61,7 @@ void	ft_free(void)
 
 void	ft_error(const char *msg)
 {
+	ft_close_fd();
 	write(2, "Error\n", ft_strlen("Error\n"));
 	write(2, msg, ft_strlen(msg));
 	ft_exit(EXIT_FAILURE);

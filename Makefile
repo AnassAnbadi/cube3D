@@ -21,13 +21,8 @@ bonus : $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-# $(NAME): $(OBJS)
-# 	$(CC) $(OBJS) -fsanitize=address -Lmlx -lmlx_Linux -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
-
-
 %.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
-
 
 clean :
 	$(RM) $(OBJS)

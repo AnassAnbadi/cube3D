@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <unistd.h>
-# include "mlx.h"
+# include <mlx.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -29,6 +29,9 @@
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
 # define BUFFER_SIZE 32
+
+# define FD 1
+# define STATE 0
 
 /* Exit keys */
 # define ESC 53
@@ -176,6 +179,8 @@ t_texture	open_texture(t_data *data, char *text);
 void		ft_destroy_img_texture(t_data *data, int *tab, char *msg);
 void		ft_init_textures(t_data *data);
 char		*ft_get_value(char *line, int flag);
+void		ft_close_fd(void);
+int			*get_fd_state(void);
 
 void		ft_raycasting(t_data *data, int x, double alpha_x);
 void		ft_put_texture(t_data *data, int x, int y, t_prm prm);

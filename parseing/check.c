@@ -26,10 +26,10 @@ char	*ft_get_value(char *line, int flag)
 
 	if (flag == 1)
 	{
-	while (*line && ft_white_space(*line))
-		line++;
-	if (*line == '\0')
-		ft_error("Invalid texture path\n");
+		while (*line && ft_white_space(*line))
+			line++;
+		if (*line == '\0')
+			ft_error("Invalid texture path\n");
 	}
 	end = line + ft_strlen(line) - 1;
 	while (end > line && ft_white_space(*end))

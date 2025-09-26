@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aanbadi <aanbadi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 22:39:58 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/24 02:12:01 by aanbadi          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:07:52 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,21 @@ void	ft_replace_spaces_in_map(char **map)
 		}
 		i++;
 	}
+}
+
+int	*get_fd_state(void)
+{
+	static int	fd_state[2];
+
+	return (fd_state);
+}
+
+void	ft_close_fd(void)
+{
+	int	*fd_state;
+
+	fd_state = get_fd_state();
+	if (fd_state[STATE] == 2)
+		close(fd_state[FD]);
+	fd_state[STATE] = 1;
 }

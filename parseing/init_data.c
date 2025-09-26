@@ -102,7 +102,9 @@ void	init_data(t_data *data, char *filename)
 	line = NULL;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		ft_error("fd\n");
+		ft_error("open faild (maybe invalid path or somthing else)\n");
+	get_fd_state()[FD] = fd;
+	get_fd_state()[STATE] = 2;
 	line = get_next_line(fd);
 	if (!line)
 		ft_error("Empty file\n");
@@ -110,5 +112,5 @@ void	init_data(t_data *data, char *filename)
 	init_param(data, line, fd);
 	ft_replace_spaces_in_map(data->map);
 	ft_init_player(data);
-	close(fd);
+	ft_close_fd();
 }
