@@ -6,7 +6,7 @@
 /*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 22:31:09 by mbenchah          #+#    #+#             */
-/*   Updated: 2025/09/26 18:51:20 by mbenchah         ###   ########.fr       */
+/*   Updated: 2025/09/26 20:04:56 by mbenchah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	ft_init_textures(t_data *data)
 	get_value1()[0] = 1;
 	data->tex[SOUTH] = open_texture(data, data->config.south_texture);
 	get_value1()[1] = 1;
-	data->tex[EAST] = open_texture(data, data->config.west_texture);
+	data->tex[EAST] = open_texture(data, data->config.east_texture);
 	get_value1()[2] = 1;
-	data->tex[WEST] = open_texture(data, data->config.east_texture);
+	data->tex[WEST] = open_texture(data, data->config.west_texture);
 	get_value1()[3] = 1;
 	data->key_board = -1;
 	data->key_board2 = -1;
