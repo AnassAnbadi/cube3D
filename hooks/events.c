@@ -1,0 +1,95 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbenchah <mbenchah@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/11 18:06:55 by mbenchah          #+#    #+#             */
+/*   Updated: 2025/09/26 17:57:04 by mbenchah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3D.h"
+
+int	mouse_move(int x, int y, t_data *data)
+{
+	static int	last_x = WIDTH / 2;
+	int			delta_x;
+	double		angle;
+	double		old_dir_x;
+	double		old_norm_x;
+
+	old_dir_x = data->p_dir.x;
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return (0);
+	delta_x = x - last_x;
+	last_x = x;
+	angle = delta_x * 0.005;
+	data->p_dir.x = data->p_dir.x * cos(angle) - data->p_dir.y * sin(angle);
+	data->p_dir.y = old_dir_x * sin(angle) + data->p_dir.y * cos(angle);
+	old_norm_x = data->norm.x;
+	data->norm.x = data->norm.x * cos(angle) - data->norm.y * sin(angle);
+	data->norm.y = old_norm_x * sin(angle) + data->norm.y * cos(angle);
+	ft_raycasting(data, 0, 0.0);
+	return (0);
+}
+
+int	move_(t_data *data)
+{
+	double	old_dir_x;
+	double	old_norm_x;
+
+	old_dir_x = data->p_dir.x;
+	old_norm_x = data->norm.x;
+	if (data->key_fleche == LEFT)
+	{
+		data->p_dir.x = data->p_dir.x * cos(0.05) + data->p_dir.y * sin(0.05);
+		data->p_dir.y = -old_dir_x * sin(0.05) + data->p_dir.y * cos(0.05);
+		data->norm.x = data->norm.x * cos(0.05)
+			+ data->norm.y * sin(0.05);
+		data->norm.y = -old_norm_x * sin(0.05)
+			+ data->norm.y * cos(0.05);
+	}
+	if (data->key_fleche == RIGHT)
+	{
+		data->p_dir.x = data->p_dir.x * cos(0.05) - data->p_dir.y * sin(0.05);
+		data->p_dir.y = old_dir_x * sin(0.05) + data->p_dir.y * cos(0.05);
+		data->norm.x = data->norm.x * cos(0.05) - data->norm.y * sin(0.05);
+		data->norm.y = old_norm_x * sin(0.05) + data->norm.y * cos(0.05);
+	}
+	keyboard_move(data);
+	if (data->key_fleche || data->key_board != -1 || data->key_board2 != -1)
+		ft_raycasting(data, 0, 0.0);
+	return (0);
+}
+
+int	key_press(int keycode, t_data *data)
+{
+	if (keycode == ESC)
+		ft_destroy_img_texture(data, get_value1(), "E");
+	if (keycode == LEFT || keycode == RIGHT)
+		data->key_fleche = keycode;
+	if (keycode == A || keycode == D)
+		data->key_board = keycode;
+	if (keycode == W || keycode == S)
+		data->key_board2 = keycode;
+	return (0);
+}
+
+int	key_release(int keycode, t_data *data)
+{
+	if (keycode == LEFT || keycode == RIGHT)
+		data->key_fleche = 0;
+	if (keycode == A || keycode == D)
+		data->key_board = -1;
+	if (keycode == W || keycode == S)
+		data->key_board2 = -1;
+	return (0);
+}
+
+int	close_window(t_data *data)
+{
+	ft_destroy_img_texture(data, get_value1(), "E");
+	return (0);
+}
