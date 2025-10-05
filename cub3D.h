@@ -34,18 +34,30 @@
 # define STATE 0
 
 /* Exit keys */
-# define ESC 53
-# define CLOSE_BUTTON 17
+// # define ESC 53
 
-/* Movement keys (WASD) */
-# define W 13
-# define D 2
-# define S 1
-# define A 0
+# define ESC 65307
+// # define CLOSE_BUTTON 17
+
+// /* Movement keys (WASD) */
+// # define W 13
+// # define D 2
+// # define S 1
+// # define A 0
+
+
+# define CLOSE_BUTTON 33  
+# define W 119   // 'w'
+# define A 97    // 'a'
+# define S 115   // 's'
+# define D 100   // 'd'
 
 /* Arrow keys */
-# define LEFT 123
-# define RIGHT 124
+# define LEFT 65361
+# define RIGHT 65363
+# define UP 65362
+# define DOWN 65364
+
 
 /* Player speed */
 # define MOVE_SPEED 0.1
@@ -181,6 +193,7 @@ void		ft_init_textures(t_data *data);
 char		*ft_get_value(char *line, int flag);
 void		ft_close_fd(void);
 int			*get_fd_state(void);
+void		check_color_format(char *line);
 
 void		ft_raycasting(t_data *data, int x, double alpha_x);
 void		ft_put_texture(t_data *data, int x, int y, t_prm prm);

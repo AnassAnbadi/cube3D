@@ -92,3 +92,20 @@ void	parse_color_line(t_data *data, char *line)
 				| (rgb[1] << 8) | rgb[2];
 	}
 }
+
+void	check_color_format(char *line)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			count++;
+		i++;
+	}
+	if (count != 2)
+		ft_error("Invalid color format: wrong number of commas\n");
+}

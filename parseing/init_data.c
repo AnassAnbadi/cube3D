@@ -20,7 +20,10 @@ void	init_param(t_data *data, char *line, int fd)
 		if (is_texture_line(ft_scipe_spaces(line)))
 			parse_texture_line(data, ft_scipe_spaces(line));
 		else if (is_color_line(ft_scipe_spaces(line)))
+		{
+			check_color_format(line);
 			parse_color_line(data, ft_scipe_spaces(line));
+		}
 		else
 			break ;
 		line = get_next_line(fd);
