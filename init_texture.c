@@ -15,8 +15,10 @@
 t_texture	open_texture(t_data *data, char *text)
 {
 	t_texture	tex;
+	size_t		len;
 
-	if (ft_strncmp (text + ft_strlen(text) - 4, ".xpm", 4))
+	len = ft_strlen(text);////////////
+	if (len <= 4 || ft_strncmp (text + ft_strlen(text) - 4, ".xpm", 4))
 	{
 		ft_destroy_img_texture(data, get_value1(),
 			"Texture file must be in .xpm format\n");
@@ -69,3 +71,4 @@ void	ft_init_textures(t_data *data)
 	data->key_board = -1;
 	data->key_board2 = -1;
 }
+
