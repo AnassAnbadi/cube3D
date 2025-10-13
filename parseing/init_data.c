@@ -101,8 +101,12 @@ void	init_data(t_data *data, char *filename)
 {
 	char	*line;
 	int		fd;
+	size_t	len;
 
 	line = NULL;
+	len =  ft_strlen(filename);////////////////////////////////
+	if (len < 5 || ft_strncmp(filename + len - 4, ".cub", 4))
+		ft_error("File must be in .cub format\n");
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		ft_error("open faild (maybe invalid path or somthing else)\n");
@@ -117,3 +121,4 @@ void	init_data(t_data *data, char *filename)
 	ft_init_player(data);
 	ft_close_fd();
 }
+
